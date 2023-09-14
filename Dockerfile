@@ -1,0 +1,1 @@
+FROM softwaresecurityproject/zap-stable
