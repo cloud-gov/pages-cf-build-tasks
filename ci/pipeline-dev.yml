@@ -32,7 +32,7 @@ jobs:
       - get: src
         resource: pr-((git-branch))
         trigger: true
-      - set_pipeline: build-container
+      - set_pipeline: owasp-zap-task
         file: src/ci/pipeline-dev.yml
         instance_vars:
           deploy-env: ((deploy-env))
@@ -43,6 +43,7 @@ jobs:
       - get: src
         resource: pr-((git-branch))
         trigger: true
+        passed: [set-pipeline]
       - task: build
         privileged: true
         config:
@@ -60,6 +61,7 @@ jobs:
             path: build
           params:
             BUILDKIT_SECRETTEXT_UA_TOKEN: ((ua-token))
+            DOCKERFILE: Dockerfile.temp
       - put: image-repository-((deploy-env))
         params:
           image: image/image.tar
@@ -87,7 +89,7 @@ jobs:
         - put: slack
           params:
             text: |
-              :x: FAILED: pages build container deployment on ((deploy-env))
+              :x: FAILED: pages owasp zap task deployment on ((deploy-env))
               <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|View build details>
             channel: ((slack-channel))
             username: ((slack-username))
@@ -119,7 +121,7 @@ resources:
     type: pull-request
     check_every: 1m
     source:
-      repository: owasp-zap-task
+      repository: cloud-gov/owasp-zap-task
       access_token: ((gh-access-token))
       base_branch: ((git-branch))
       disable_forks: true
