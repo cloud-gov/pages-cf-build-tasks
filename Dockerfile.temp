@@ -1,0 +1,7 @@
+FROM softwaresecurityproject/zap-stable
+
+RUN pip3 install --no-cache-dir --upgrade boto3 requests argparse
+RUN mkdir /zap/wrk
+COPY --chown=1000:1000 run_pages_task.py /zap/
+# for consistency with cf task running
+WORKDIR /
