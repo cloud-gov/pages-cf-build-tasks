@@ -70,7 +70,7 @@ main.py <operator-defined-flags> <default-parameters>
 
 Adding the code for a new task is done in this repository. Each task 
 needs a folder within `tasks` which should be named corresponding the `appName` defined above (example: the folder `example` becomes `pages-example-task-dev`). There are two files required to be inside this folder and a third optional file:
-- `definition.py`: This is the main site of task-specific code. It needs to export one class, a subclass of [`BuildTask`](lib/task.py). The only requirements of this class are that it implements a `handler` function which returns a file object (the task artifact) and has extra parsers defined for any `operator-defined-flags`. An example is shown at [`tasks/example/definition.py`](tasks/example/definition.py)
+- `definition.py`: This is the main site of task-specific code. It needs to export one class, a subclass of [`BuildTask`](lib/task.py). The only requirements of the custom class are that it implements a `handler` function which returns an absolute path file name (the task artifact) and has extra parsers defined for any `operator-defined-flags`. An example is shown at [`tasks/example/definition.py`](tasks/example/definition.py)
 - `.env`: Environment variables which are added as [Build arguments](https://docs.docker.com/build/guide/build-args/) to the final docker image. The only required value is `BASE_IMAGE`.
 - `build.sh`: (optional) This script is run to configure task-specific dependecies needed in the final docker image.
 

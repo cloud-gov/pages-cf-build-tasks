@@ -5,7 +5,8 @@ from humanize import naturalsize
 
 class MyTask(BuildTask):
     def __init__(self):
-        self._extra_parsers
+        super().__init__(self)
+        self.extra_parsers = [['-t', '--target']]
 
     def handler():
         """do my thing"""

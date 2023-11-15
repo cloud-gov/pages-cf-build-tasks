@@ -2,18 +2,20 @@ from definition import MyTask
 
 if __name__ == "__main__":
     try:
-        MyTask(params, target, kwargs)
-        MyTask.argument_parser()
-        # catch task initialization failure?
+        task = MyTask()
+        task.parse_args()
 
         try:
-            MyTask.status_start()
-            MyTask.handler()
-            MyTask.store_thing()
-            MyTask.status_end()
-        except SpecificException:
+            task.status_start()
+            task.filename = task.handler()
+            task.upload_file()
+            task.status_end()
+        except NotImplementedError:
+            """operator didn't write a handler"""
+            task.status_error('No handler function present')
+        except Exception as e:
             """throw task error, update"""
-            MyTask.status_error()
+            task.status_error(e)
     except Exception as e:
         """these errors are outside class"""
-
+        task.status_error(e)
