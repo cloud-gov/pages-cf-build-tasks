@@ -20,7 +20,7 @@ New build tasks are registered in the [pages-core](https://github.com/cloud-gov/
 
 ```js
 await db.insert('build_task_type',
-  ['name', 'description', 'metadata', 'createdAt', 'updatedAt', 'runner', 'startsWhen'],
+  ['name', 'description', 'metadata', 'createdAt', 'updatedAt', 'runner', 'startsWhen', 'url'],
   [
     taskTypeName,
     taskTypeDescription,
@@ -39,10 +39,10 @@ await db.insert('build_task_type',
 ],
 callback
 );
+```
 
 The operator should supply the following values:
 
-```
 - `taskTypeName`: A human-readable task name. Example: "OWASP ZAP Vulnerability Scan"
 - `taskTypeDescription`: A human-readable task description. Example: "This scan identifies potential website security issues like unintended exposure of sensitive data, SQL injection opportunities, cross-site scripting (XSS) flaws, and the use of components with known vulnerabilities." 
 - `appName`: A [`kebab-case`](https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case) application name for the matching Cloud Foundary app this will be deployed as. It should include a template variable `env` for matching the various deployed environments (`dev`, `staging`, `production`). Example: `pages-owasp-zap-task-${env}`. This will correspond to the folder in this repo that hosts the code.
