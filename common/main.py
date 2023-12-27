@@ -1,8 +1,9 @@
-from definition import MyTask
+from lib.definition import BuildTask
+import traceback
 
 if __name__ == "__main__":
     try:
-        task = MyTask()
+        task = BuildTask()
         task.parse_args()
 
         try:
@@ -13,9 +14,10 @@ if __name__ == "__main__":
         except NotImplementedError:
             """operator didn't write a handler"""
             task.status_error('No handler function present')
-        except Exception as e:
+        except Exception:
             """throw task error, update"""
-            task.status_error(e)
-    except Exception as e:
-        """these errors are outside class"""
-        task.status_error(e)
+            task.status_error(traceback.format_exc())
+    except Exception:
+        """these errors are outside the class"""
+        # logger might not be setup
+        traceback.print_exc()

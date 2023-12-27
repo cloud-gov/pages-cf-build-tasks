@@ -30,100 +30,108 @@ jobs:
     serial: true
     plan:
       - get: src
-        resource: pr-((git-branch))
+        resource: pr
         trigger: true
-      - set_pipeline: owasp-zap-task
+      - set_pipeline: cf-build-tasks
         file: src/ci/pipeline-dev.yml
         instance_vars:
           deploy-env: ((deploy-env))
-          git-branch: ((git-branch))
 
   - name: deploy-((deploy-env))
     plan:
       - get: src
-        resource: pr-((git-branch))
+        resource: pr
         trigger: true
         passed: [set-pipeline]
-      - task: build
-        privileged: true
-        config:
-          platform: linux
-          image_resource:
-            type: registry-image
-            source:
-              repository: concourse/oci-build-task
-          inputs:
-          - name: src
-            path: .
-          outputs:
-          - name: image
-          run:
-            path: build
-          params:
-            BUILDKIT_SECRETTEXT_UA_TOKEN: ((ua-token))
-            DOCKERFILE: Dockerfile.temp
-      - put: image-repository-((deploy-env))
-        params:
-          image: image/image.tar
-      - task: deploy
-        config:
-          <<: *cf-image
-          inputs:
+      - get: cf-image
+      - task: ls-tasks
+        file: src/ci/partials/ls-tasks.yml
+        image: cf-image
+      - load_var: build-tasks
+        file: src/build-tasks.json
+      - across:
+        - var: build-task
+          values: ((.:build-tasks))
+        do:
+        - task: build
+          privileged: true
+          config:
+            platform: linux
+            image_resource:
+              type: registry-image
+              source:
+                repository: concourse/oci-build-task
+            inputs:
             - name: src
-            - name: image-repository-((deploy-env))
-          run:
-            dir: src
-            path: ci/tasks/deploy.sh
-        params:
-          <<: *env-cf
-          CF_APP_NAME: pages-owasp-zap-task-((deploy-env))
-          CF_MANIFEST: .cloudgov/manifest.yml
-          CF_VARS_FILE: .cloudgov/vars/pages-((deploy-env)).yml
-          IMAGE_REPOSITORY: ../image-repository-((deploy-env))/repository
-          IMAGE_TAG: pages-((deploy-env))
-          CF_DOCKER_USERNAME: ((ecr-aws-key))
-          CF_DOCKER_PASSWORD: ((ecr-aws-secret))
-
-    on_failure:
-      in_parallel:
-        - put: slack
+              path: .
+            outputs:
+            - name: image
+            run:
+              path: build
+            params:
+              BUILD_ARG_TASK_FOLDER: tasks/((.:build-task))
+              BUILD_ARGS_FILE: tasks/((.:build-task))/.env
+              BUILDKIT_SECRETTEXT_UA_TOKEN: ((ua-token))
+              DOCKERFILE: Dockerfile
+        - task: tag-list
+          file: src/ci/partials/tag-list.yml
+          image: cf-image
           params:
-            text: |
-              :x: FAILED: pages owasp zap task deployment on ((deploy-env))
-              <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|View build details>
-            channel: ((slack-channel))
-            username: ((slack-username))
-            icon_url: ((slack-icon-url))
-
-  - name: report-success-((deploy-env))
-    plan:
-      - get: src
-        resource: pr-((git-branch))
-        trigger: true
-        passed: [deploy-((deploy-env))]
-    on_success:
-      in_parallel:
-        - put: slack
+            TAG: ((.:build-task))-((deploy-env))
+        - put: image-repository-((deploy-env))
           params:
-            text: |
-              :white_check_mark: SUCCESS: Successfully deployed pages owasp zap task on ((deploy-env))
-              <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|View build details>
-            channel: ((slack-channel))
-            username: ((slack-username))
-            icon_url: ((slack-icon-url))
+            image: image/image.tar # this might need output_mapping
+            additional_tags: src/tag-list.txt
+        - task: deploy
+          config:
+            <<: *cf-image
+            inputs:
+              - name: src
+              - name: image-repository-((deploy-env))
+            run:
+              dir: src
+              path: ci/tasks/deploy.sh
+          params:
+            <<: *env-cf
+            CF_APP_NAME: pages-((.:build-task))-task-((deploy-env))
+            CF_MANIFEST: .cloudgov/manifest.yml
+            CF_VARS_FILE: .cloudgov/vars/pages-((deploy-env)).yml
+            IMAGE_REPOSITORY: ../image-repository-((deploy-env))/repository
+            IMAGE_TAG: ((.:build-task))-((deploy-env))
+            CF_DOCKER_USERNAME: ((ecr-aws-key))
+            CF_DOCKER_PASSWORD: ((ecr-aws-secret))
+          on_failure:
+            put: slack
+            params:
+              text: |
+                :x: FAILED: pages-cf-build-tasks: ((.:build-task)) deployment on ((deploy-env))
+                <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|View build details>
+              channel: ((slack-channel))
+              username: ((slack-username))
+              icon_url: ((slack-icon-url))
+          on_success:
+            put: slack
+            params:
+              text: |
+                :white_check_mark: SUCCESS: Successfully deployed pages-cf-build-tasks: ((.:build-task)) on ((deploy-env))
+                <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|View build details>
+              channel: ((slack-channel))
+              username: ((slack-username))
+              icon_url: ((slack-icon-url))
+
 
 ############################
 #  RESOURCES
 
 resources:
 
-  - name: pr-((git-branch))
+  - name: pr
     type: pull-request
     check_every: 1m
     source:
-      repository: cloud-gov/owasp-zap-task
+      repository: cloud-gov/pages-cf-build-tasks
       access_token: ((gh-access-token))
-      base_branch: ((git-branch))
+      base_branch: main
       disable_forks: true
       ignore_drafts: false
 
@@ -137,9 +145,18 @@ resources:
     source:
       aws_access_key_id: ((ecr-aws-key))
       aws_secret_access_key: ((ecr-aws-secret))
-      repository: pages-owasp-zap-task
+      repository: pages-cf-build-tasks
       aws_region: us-gov-west-1
-      tag: pages-((deploy-env))
+      tag_regex: '*-((deploy-env))'
+
+  - name: cf-image
+    type: registry-image
+    source:
+      aws_access_key_id: ((ecr-aws-key))
+      aws_secret_access_key: ((ecr-aws-secret))
+      repository: harden-concourse-task
+      aws_region: us-gov-west-1
+      tag: ((harden-concourse-task-tag))
 
 ############################
 #  RESOURCE TYPES

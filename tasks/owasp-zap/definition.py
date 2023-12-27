@@ -1,17 +1,20 @@
-from lib import BuildTask
+from lib.task import BaseBuildTask
 import subprocess
 
 
-class MyTask(BuildTask):
+class BuildTask(BaseBuildTask):
     def __init__(self):
-        # need to add "target" arg parser
-        self._extra_parsers
+        super().__init__(
+            extra_args=[['-t', '--target']]
+        )
 
-    def handler():
+    def handler(self):
         """scan"""
+        filename = 'report.html'
         subprocess.run([
             'zap-baseline.py',
-            '-t', args.target, 
-            '-r', 'report.html'
+            '-t', self.args['target'],
+            '-r', filename
         ], timeout=900)
-    
+
+        return f'/zap/wrk/{filename}'
