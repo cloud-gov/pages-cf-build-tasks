@@ -10,7 +10,9 @@ Shared code used across tasks is located in `lib/`.
 
 ## Container Hardening + ECR Storage
 
-TBD
+hardening: TBD
+
+All container images are stored in the `pages-cf-build-tasks` repository on ECR. They are tagged with the task folder name and environment name: `((build-task))-((deploy-env))`
 
 ## Patterns
 
@@ -27,7 +29,7 @@ await db.insert('build_task_type',
     {
     "appName": appName,
     "template": {
-        "command": `run_task.py ${additionalFlags}`,
+        "command": `python build-task/main.py ${additionalFlags}`,
         "disk_in_mb": diskInMb
     }
     },
@@ -56,7 +58,7 @@ The operator should supply the following values:
 The [command](https://docs.docker.com/engine/reference/run/) sent to a build task will always be of the following form:
 
 ```sh
-main.py <operator-defined-flags> <default-parameters>
+python build-task/main.py <operator-defined-flags> <default-parameters>
 ```
 
 > [!NOTE]  
@@ -70,10 +72,10 @@ main.py <operator-defined-flags> <default-parameters>
 
 Adding the code for a new task is done in this repository. Each task 
 needs a folder within `tasks` which should be named corresponding the `appName` defined above (example: the folder `example` becomes `pages-example-task-dev`). There are two files required to be inside this folder and a third optional file:
-- `definition.py`: This is the main site of task-specific code. It needs to export one class, a subclass of [`BuildTask`](lib/task.py). The only requirements of the custom class are that it implements a `handler` function which returns an absolute path file name (the task artifact) and has extra parsers defined for any `operator-defined-flags`. An example is shown at [`tasks/example/definition.py`](tasks/example/definition.py)
+- `definition.py`: This is the main site of task-specific code. It needs to export one class, a subclass of [`BaseBuildTask`](lib/task.py). The only requirements of the custom class are that it implements a `handler` function which returns an absolute path file name (the task artifact) and has extra parsers defined for any `operator-defined-flags`. An example is shown at [`tasks/example/definition.py`](tasks/example/definition.py)
 - `.env`: Environment variables which are added as [Build arguments](https://docs.docker.com/build/guide/build-args/) to the final docker image. The only required value is `BASE_IMAGE`.
 - `build.sh`: (optional) This script is run to configure task-specific dependecies needed in the final docker image.
 
 ### Docker Image Building in CI
 
-TBD (it magically takes all the above information and creates a valid build task)
+All tasks use the same `Dockerfile` with different build arguments supplied. Each task is built via the concourse task [`oci-build-task`](https://github.com/concourse/oci-build-task). The `.env` file referenced above is supplied as `BUILD_ARGS_FILE` so that `BASE_IMAGE` is available at build time. `TASK_FOLDER` is interpolated by the concourse `across` step and supplied as `BUILD_ARG_TASK_FOLDER`. All base images are required to have python available. 

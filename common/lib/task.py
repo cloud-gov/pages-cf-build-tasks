@@ -1,25 +1,30 @@
 import argparse
 import boto3
 import json
+import os
 import requests
 import logging
 
 
-class BuildTask:
-    def __init__(self):
-        self.extra_args = []
-        self.logger = logging.Logger()
-        
-    def parse_args(self):
-        parser = argparse.ArgumentParser()
+class BaseBuildTask:
+    def __init__(self, extra_args):
+        self.logger = logging.Logger(name=type(self).__name__)
+        self.parser = argparse.ArgumentParser()
+
         # single default argument
-        parser.add_argument('-p', '--params', dest='params',
-                            help='A JSON encoded string',
-                            metavar="'{\"foo\": \"bar\"}'")
+        self.parser.add_argument('-p', '--params', dest='params',
+                                 help='A JSON encoded string',
+                                 metavar="'{\"foo\": \"bar\"}'")
+
         # custom arguments
-        for arg in self.extra_args:
-            parser.add_argument(*arg)
-        params = json.loads(self.parser.parse_args())
+        for arg in extra_args:
+            self.parser.add_argument(*arg)
+
+    def parse_args(self):
+        args = self.parser.parse_args()
+
+        # default argument handling
+        params = json.loads(args.params)
 
         self.status_callback = params["STATUS_CALLBACK"]
         self.task_id = params["TASK_ID"]
@@ -35,7 +40,11 @@ class BuildTask:
             region_name=self.aws_default_region
         )
 
-        self.params = params
+        self.args = {}
+        # custom argument handling
+        for k, v in args.__dict__.items():
+            if k != 'params':
+                self.args[k] = v
 
     def status_start(self):
         """callback"""
@@ -61,7 +70,10 @@ class BuildTask:
 
     def upload_file(self):
         """upload file to S3"""
-        self.key = f'_tasks/artifacts/{self.task_id}/{self.filename}'
+
+        base = os.path.basename(self.filename)
+        self.key = f'_tasks/artifacts/{self.task_id}/{base}'
+
         self.s3_client.upload_file(
             Filename=self.filename,
             Bucket=self.bucket,

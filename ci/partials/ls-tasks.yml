@@ -1,0 +1,7 @@
+platform: linux
+inputs: [name: src]
+outputs: [name: src]
+run:
+  dir: src
+  path: bash
+  args: [-c, 'ls tasks | jq --raw-input --slurp "split(\"\n\") | map(select(. != \"\"))" > build-tasks.json']
