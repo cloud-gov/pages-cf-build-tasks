@@ -17,9 +17,8 @@ class BuildTask(BaseBuildTask):
         disk = psutil.disk_usage("/")
         self.logger.info(f'CPU Usage Percentage: {psutil.cpu_percent()}')
         self.logger.info(f'Memory Usage Percentage: {psutil.virtual_memory().percent}')
+        self.logger.info(f'Memory Usage: {psutil.virtual_memory().total}')
         self.logger.info(f'Disk usage: {disk.used} / {disk.total}')
-
-        time.sleep(3600)
 
         subprocess.run([
             'zap-baseline.py',
