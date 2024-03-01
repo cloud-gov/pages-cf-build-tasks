@@ -8,7 +8,8 @@ import logging
 
 class BaseBuildTask:
     def __init__(self, extra_args):
-        self.logger = logging.Logger(name=type(self).__name__)
+        logging.basicConfig(level=os.environ.get('LOGLEVEL', 'INFO').upper())
+        self.logger = logging.getLogger(name=type(self).__name__)
         self.parser = argparse.ArgumentParser()
 
         # single default argument

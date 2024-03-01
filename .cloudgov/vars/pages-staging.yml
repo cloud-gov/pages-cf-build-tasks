@@ -1,3 +1,4 @@
 env: staging
 env_postfix: -staging
 product: pages
+loglevel: debug

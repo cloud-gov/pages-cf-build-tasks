@@ -1,4 +1,4 @@
----    
+---
 applications:
   - name: ((product))-owasp-zap-task((env_postfix))
     no-route: true
@@ -11,3 +11,5 @@ applications:
       labels:
         type: build-task
         name: owasp-zap
+    env:
+      LOGLEVEL: ((loglevel))
