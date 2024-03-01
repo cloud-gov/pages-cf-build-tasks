@@ -1,7 +1,7 @@
 from lib.task import BaseBuildTask
 import subprocess
 import psutil
-
+import time
 
 class BuildTask(BaseBuildTask):
     def __init__(self):
@@ -18,6 +18,8 @@ class BuildTask(BaseBuildTask):
         self.logger.info(f'CPU Usage Percentage: {psutil.cpu_percent()}')
         self.logger.info(f'Memory Usage Percentage: {psutil.virtual_memory().percent}')
         self.logger.info(f'Disk usage: {disk.used} / {disk.total}')
+
+        time.sleep(3600)
 
         subprocess.run([
             'zap-baseline.py',
