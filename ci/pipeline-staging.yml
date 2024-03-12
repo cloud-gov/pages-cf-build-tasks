@@ -52,6 +52,7 @@ jobs:
       - across:
         - var: build-task
           values: ((.:build-tasks))
+          max_in_flight: 20
         do:
         - task: build
           privileged: true
