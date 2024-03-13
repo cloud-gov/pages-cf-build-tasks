@@ -9,18 +9,6 @@ env-cf: &env-cf
   CF_ORG: gsa-18f-federalist
   CF_SPACE: ((deploy-env))
 
-cf-image: &cf-image
-  platform: linux
-  image_resource:
-    type: registry-image
-    source:
-      repository: 18fgsa/concourse-task
-      aws_access_key_id: ((ecr-aws-key))
-      aws_secret_access_key: ((ecr-aws-secret))
-      repository: harden-concourse-task
-      aws_region: us-gov-west-1
-      tag: ((harden-concourse-task-tag))
-
 ############################
 #  JOBS
 
@@ -79,25 +67,19 @@ jobs:
           image: cf-image
           params:
             TAG: ((.:build-task))-((deploy-env))
-        - put: image-repository-((deploy-env))
+        - put: image-repository
           params:
             image: image/image.tar # this might need output_mapping
             additional_tags: src/tag-list.txt
         - task: deploy
-          config:
-            <<: *cf-image
-            inputs:
-              - name: src
-              - name: image-repository-((deploy-env))
-            run:
-              dir: src
-              path: ci/tasks/deploy.sh
+          file: src/ci/partials/deploy.yml
+          image: cf-image
           params:
             <<: *env-cf
             CF_APP_NAME: pages-((.:build-task))-task-((deploy-env))
             CF_MANIFEST: .cloudgov/manifest.yml
             CF_VARS_FILE: .cloudgov/vars/pages-((deploy-env)).yml
-            IMAGE_REPOSITORY: ../image-repository-((deploy-env))/repository
+            IMAGE_REPOSITORY: ../image-repository/repository
             IMAGE_TAG: ((.:build-task))-((deploy-env))
             CF_DOCKER_USERNAME: ((ecr-aws-key))
             CF_DOCKER_PASSWORD: ((ecr-aws-secret))
@@ -141,7 +123,7 @@ resources:
     source:
       url: ((slack-webhook-url))
 
-  - name: image-repository-((deploy-env))
+  - name: image-repository
     type: registry-image
     source:
       aws_access_key_id: ((ecr-aws-key))
