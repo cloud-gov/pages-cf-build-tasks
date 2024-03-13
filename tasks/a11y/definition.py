@@ -20,6 +20,7 @@ class BuildTask(BaseBuildTask):
         for url in data:
             subprocess.run([
                 'axe',
+                '--chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage"',
                 url,
                 '--dir',
                 'results'
