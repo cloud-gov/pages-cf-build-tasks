@@ -1,0 +1,27 @@
+{
+  "name": "cg-pages-accessibility-scan-report-formatter",
+  "version": "0.0.1",
+  "description": "Creates an HTML report from Axe results listing violations, passes, incomplete and incompatible results.",
+  "engines": {
+    "node": ">=20"
+  },
+  "type": "module",
+  "scripts": {
+    "lint": "ejslint templates/*",
+    "build": "node index.js",
+    "watch": "ejslint templates/* && node --watch-path=./templates --watch-path=./index.js index.js",
+    "federalist": "npm run build"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/eslint-parser": "^7.19.1",
+    "ejs-lint": "^2.0.0",
+    "eslint": "^8.33.0",
+    "prettier": "^2.8.3"
+  },
+  "dependencies": {
+    "core-js": "^3.36.1",
+    "ejs": "^3.1.8",
+    "glob": "^10.3.10"
+  }
+}
