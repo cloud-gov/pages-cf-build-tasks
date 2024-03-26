@@ -4,10 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= title %></title>
 
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.7.1/js/uswds-init.min.js" crossorigin="anonymous"
-    referrerpolicy="no-referrer"></script> -->
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.7.1/css/uswds.min.css"
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.8.0/css/uswds.min.css"
+    integrity="sha512-fxBZVlVQrZVKTlt4kr/hPDd1p0SYHuQxytgI9ccrYonBfAFTXbGPSL08YdYUA8DPXpW25F5G+nOjQK76s5USQQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
@@ -20,7 +18,27 @@
       white-space: pre-wrap;
       overflow-x: scroll;
       width: 100%;
-      background: #f0f0f0;
+      background: #f2f4f5 !important;
+      color: black !important;
+      line-break: anywhere;
+    }
+
+    .hljs .hljs-punctuation,
+    .hljs .hljs-tag {
+      color: #4b4b4b;
+    }
+
+    .hljs .hljs-tag .hljs-attr {
+      color: #05236c;
+    }
+
+    .hljs .hljs-tag .hljs-name {
+      color: #04363f;
+    }
+
+    .hljs .hljs-tag .hljs-string {
+      color: #510438;
+      font-style: italic;
     }
 
     .usa-tag {

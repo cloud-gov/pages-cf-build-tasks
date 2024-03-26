@@ -100,7 +100,11 @@
               <%= check.description -%> in <b> <%= check.nodes.length%>
                 <%= utils.plural(check.nodes.length, 'location' ) %></b>.
               <a href="<%= check.helpUrl %>" target="_blank" class="usa-link font-body-sm">Learn
-                more</a>
+                more <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
+                  width="24">
+                  <path fill="currentColor"
+                    d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                </svg></a>
             </p>
           </div>
           <ol class="margin-top-4">
@@ -112,7 +116,7 @@
                   class="css text-normal font-mono-md line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere"><%= node.target %></code>
               </h4>
               <h5 class="margin-bottom-0 font-body-sm text-semibold">Location in page:</h5>
-              <pre><code class="html text-wrap font-mono-xs"><%= node.html %></code></pre>
+              <pre><code class="html text-wrap font-mono-xs line-height-mono-4"><%= node.html %></code></pre>
               <div>
                 <% if (node.failureSummary) { %>
                 <div class="usa-summary-box margin-top-3" role="region"
@@ -204,8 +208,13 @@
   </main>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.7.1/js/uswds.min.js" crossorigin="anonymous"
     referrerpolicy="no-referrer" defer></script> -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+    integrity="sha512-hasIneQUHlh06VNBe7f6ZcHmeRTLIaQWFd43YriJ0UND19bvYRauxthDg8E4eVNPm9bRUhr5JGeqH7FRFXQu5g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script>hljs.highlightAll();</script>
 </body>
