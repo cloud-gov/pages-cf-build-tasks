@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('includes/head', { title: 'Index of WCAG scan results for '  + accumulator.repo_and_branch + ' on ' + utils.timestampReadable(accumulator.reportPages[0].timestamp) }) %>
+<%- include('includes/head', { title: 'Index of WCAG scan results for '  + accumulator.baseurl + ' on ' + utils.timestampReadable(accumulator.reportPages[0].timestamp) }) %>
 
 <body>
   <section class="usa-alert usa-alert--warning usa-alert--slim usa-alert--no-icon">
@@ -16,7 +16,7 @@
     <div class="grid-row">
       <h1 class="font-heading-xl grid-col padding-right-2">WCAG scan results index for<br /><span
           class=" font-code-lg text-normal text-primary-darker bg-accent-cool-lighter padding-x-05">
-        <%= accumulator.repo_and_branch %></span><span
+        <%= accumulator.baseurl %></span><span
           class="font-body-md text-normal"> on <%=  utils.timestampReadable(accumulator.reportPages[0].timestamp) %></span>
       </h1>
       <span class="grid-col-auto inline-block margin-y-4">
@@ -52,7 +52,7 @@
           <th scope="row">
             <span class="mobile-lg:display-none">Scanned URL: <br/></span>
             <a class="usa-link font-mono-2xs break-anywhere" title="results for <%= page.path %>"
-              href=".<%= page.path %>">../<%= accumulator.repo_and_branch %><%= page.path -%></a></td>
+              href="./<%= page.path %>"><%= page.url -%></a></td>
           <td><a class="usa-link font-body-3xs text-no-wrap" target="_blank" href="<%= page.url %>"
               title="open scanned URL in a new window">open page&nbsp;<svg class="usa-icon"
                 xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
@@ -84,8 +84,6 @@
     <%- include('includes/about', utils.rulesets ); %>
 
   </main>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.7.1/js/uswds.min.js" crossorigin="anonymous"
-    referrerpolicy="no-referrer" defer></script>
 </body>
 
 </html>

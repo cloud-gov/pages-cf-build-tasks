@@ -4,14 +4,17 @@ import { Glob } from 'glob'
 import fs from 'fs/promises';
 import groupBy from 'core-js/actual/object/group-by.js';
 import * as utils from './templates/utils.js';
+import minimist from 'minimist';
+import path from 'path';
 
-async function renderFromTemplate(renderData, accumulator, filePath, outputPath, templatePath, templateName) {
+async function renderFromTemplate(renderData, accumulator, filePath, outputDir, templateDir, templateName) {
 
-  const templateURL = new URL(`./${templatePath}/${templateName}`, import.meta.url);
-  const outputURL = new URL(`./${outputPath}${filePath}.html`, import.meta.url);
-  const template = await fs.readFile(templateURL, 'utf8');
-  const html = await ejs.render(template, { ...renderData, accumulator, utils }, { filename: `${templatePath}/${templateName}` })
-  fs.writeFile(outputURL, html, 'utf8');
+  const templatePath = path.join(templateDir, templateName);
+  await fs.mkdir(outputDir, { recursive: true })
+  const outputPath = path.join(outputDir, `${filePath}.html`);
+  const template = await fs.readFile(templatePath, 'utf8');
+  const html = await ejs.render(template, { ...renderData, accumulator, utils }, { filename: `${templateDir}/${templateName}` })
+  fs.writeFile(outputPath, html, 'utf8');
 }
 
 function groupViolations(allViolations) {
@@ -46,27 +49,32 @@ function prepareResults(results) {
     groupedViolations: groupViolations(enhanceViolations(results.violations)),
   };
 }
+const argv = minimist(process.argv.slice(2));
 
-const g = new Glob('results/*', {});
+let inputPath = argv.inputDir;
+let outputPath = argv.outputDir;
+let templatePath = 'templates';
+
+const g = new Glob(`${inputPath}/*`, {});
 const totalLength = g.walkSync().length;
 
 let accumulator = {
-  baseurl: "https://federalist-not-a-real-hash-dd6b-e58e04b1-44ce-efde9f29dd6b.sites.pages.cloud.gov/preview/cloud-gov/repo-name/branch-name", // can we get this from pages?
-  repo_and_branch: "org-name/repo-name/branch-name",
+  baseurl: argv.target || "target not provided", // can we get this from pages?
   totalPageCount: totalLength,
   totalViolationsCount: 0,
   currentPage: 0,
   reportPages: [],
 }
-let outputPath = '_site'; // ok to get from command line?
-let templatePath = 'templates'; // ok to get from command line?
+
 
 console.log(`Generating report pages at ${outputPath}/`)
 
 for await (const file of g) {
   let contents = JSON.parse(await fs.readFile(file, "utf8"));
   let thisPage = prepareResults(contents[0]);
-  const fileName = file.substring(file.lastIndexOf('/'), file.lastIndexOf('.')) || file;
+  const fileName = path.parse(file).name
+
+  // file.substring(file.lastIndexOf('/'), file.lastIndexOf('.')) || file;
 
   await renderFromTemplate(thisPage, accumulator, fileName, outputPath, templatePath, "reportPage.ejs").then(() => {
     accumulator.reportPages.push({

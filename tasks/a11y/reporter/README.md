@@ -5,10 +5,10 @@
 Creates an HTML report from Axe results listing violations, passes, incomplete
 and incompatible results.
 
-Given a JSON file in a `/results` directory, the following command creates matching HTML reports in `/_sites`.
+Given an `inputDir` containing JSON files from [@axe-core/cli](https://www.npmjs.com/package/@axe-core/cli) for a given `target`, the following command creates matching HTML reports in an `outputDir`.
 
 ```sh
 
-node index.js
+node generate-report.js --inputDir results --outputDir reports --target https://example.gov
 
 ```

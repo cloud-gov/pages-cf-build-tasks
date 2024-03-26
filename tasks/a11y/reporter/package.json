@@ -8,9 +8,8 @@
   "type": "module",
   "scripts": {
     "lint": "ejslint templates/*",
-    "build": "node index.js",
-    "watch": "ejslint templates/* && node --watch-path=./templates --watch-path=./index.js index.js",
-    "federalist": "npm run build"
+    "build": "node generate-report.js",
+    "watch": "ejslint templates/* && node --watch-path=./templates --watch-path=./generate-report.js generate-report.js"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -22,6 +21,7 @@
   "dependencies": {
     "core-js": "^3.36.1",
     "ejs": "^3.1.8",
-    "glob": "^10.3.10"
+    "glob": "^10.3.10",
+    "minimist": "^1.2.8"
   }
 }
