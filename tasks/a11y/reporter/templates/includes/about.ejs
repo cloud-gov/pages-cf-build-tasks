@@ -1,0 +1,36 @@
+<section class="font-body-xs line-height-body-4 maxw-tablet margin-y-4">
+  <h2 class="font-heading-lg">
+    About this scan
+  </h2>
+  <p>According to <a
+      href="https://www.whitehouse.gov/omb/management/ofcio/delivering-a-digital-first-public-experience/#IIIA:~:text=Test%20for%20accessibility"
+      target="_blank">OMB Memo 23-22</a>, in addition to the accessibility standards required by <a
+      href="https://www.section508.gov/" target="_blank">Section 508</a>, agencies should apply the most
+    current <a href="https://www.w3.org/WAI/standards-guidelines/" target="_blank">Web Content Accessibility
+      Guidelines (WCAG)</a> published by the World Wide Web Consortium (W3C) to websites and web applications,
+    where possible. This accessibility scan checks each webpage for violations of the latest WCAG version,
+    currently <b>WCAG 2.2 Level AA</b>, and includes the following rulesets:</p>
+  <ul>
+    <% for (const set in utils.rulesets) { %>
+    <li>
+      <%= utils.rulesets[set] %>
+    </li>
+    <% } %>
+  </ul>
+  <p>Descriptions of the rulesets are available in the <a
+      href="https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md#rule-descriptions"
+      target="_blank" class="usa-link">axe-core documentation</a>.</p>
+
+  <p>
+    This scan uses the open source axe-core project to identify common violations. With axe-core, you may expect to
+    find a little over 55% of WCAG issues automatically.
+    Please remember that <b>automated testing tools are limited and can only detect some accessibility
+      issues</b>. Accessibility testing should include automated scanning, manual testing of websites, and
+    usability testing with people with disabilities, as well as testing with users of adaptive technologies.
+  </p>
+  <hr />
+  <p>This scan is a service of <a href="https://cloud.gov/pages" target="_blank" class="usa-link">cloud.gov
+      Pages</a>, powered by axe-core. Check out the <a href="#" target="_blank" class="usa-link">documentation</a> for
+    more information.
+  </p>
+</section>
