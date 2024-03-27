@@ -41,7 +41,7 @@ class BuildTask(BaseBuildTask):
         # report
         subprocess.run([
             'node',
-            'reporter/generate-reporter.js',
+            'build-task/reporter/generate-reporter.js',
             '--inputDir',
             results_dir,
             '--outputDir',
