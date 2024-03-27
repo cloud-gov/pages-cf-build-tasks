@@ -29,14 +29,13 @@ class BuildTask(BaseBuildTask):
         # scan
         for url in data:
             subprocess.run([
-                'axe',
-                '--chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage"',  # noqa: E501
-                url,
-                '--tags',
-                'wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa',
-                '--dir',
-                results_dir
-            ], timeout=900)
+                f"""
+                axe {url}
+                --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage"
+                --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa
+                --dir {results_dir}
+                """
+            ], timeout=900, shell=True)
 
         # report
         subprocess.run([
