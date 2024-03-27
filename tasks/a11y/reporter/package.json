@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Creates an HTML report from Axe results listing violations, passes, incomplete and incompatible results.",
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
   },
   "type": "module",
   "scripts": {
