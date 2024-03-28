@@ -1,4 +1,3 @@
-import datetime
 import os
 import shutil
 import subprocess
@@ -11,12 +10,20 @@ from lib.task import BaseBuildTask
 class BuildTask(BaseBuildTask):
     def __init__(self):
         super().__init__(
-            extra_args=[['-t', '--target']]
+            extra_args=[
+                ['-t', '--target'],
+                ['-b', '--buildid'],
+                ['-o', '--owner'],
+                ['-r', '--repository']]
         )
 
     def handler(self):
         """scan"""
         target = self.args['target']
+        buildid = self.args['buildid']
+        owner = self.args['owner']
+        repository = self.args['repository']
+
         results_dir = '/build-task/results'
         reports_dir = '/build-task/reports'
         templates_dir = '/build-task/reporter/templates'
@@ -51,7 +58,6 @@ class BuildTask(BaseBuildTask):
         ])
 
         # bundle
-        today = f'{datetime.date.today():%Y-%m-%d-%M}'
-        filename = f'/accessibility-scan-for-ursite-on-{today}.zip'
+        filename = f'/accessibility-scan-for-{owner}-{repository}-{buildid}'  # noqa: E501
         shutil.make_archive(filename, 'zip', reports_dir)
-        return filename
+        return f'{filename}.zip'
