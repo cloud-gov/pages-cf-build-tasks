@@ -52,6 +52,6 @@ class BuildTask(BaseBuildTask):
 
         # bundle
         today = f'{datetime.date.today():%Y-%m-%d-%M}'
-        filename = f'accessibility-scan-for-{target}-on-{today}.zip'
+        filename = f'/accessibility-scan-for-{target}-on-{today}.zip'
         shutil.make_archive(filename, 'zip', reports_dir)
         return filename
