@@ -17,8 +17,9 @@ class BuildTask(BaseBuildTask):
     def handler(self):
         """scan"""
         target = self.args['target']
-        results_dir = 'results'
-        reports_dir = 'reports'
+        results_dir = '/build-task/results'
+        reports_dir = '/build-task/reports'
+        templates_dir = '/build-task/reporter/templates'
         os.makedirs(results_dir, exist_ok=True)
 
         # crawl
@@ -43,6 +44,8 @@ class BuildTask(BaseBuildTask):
             results_dir,
             '--outputDir',
             reports_dir,
+            '--templateDir',
+            templates_dir,
             '--target',
             target
         ])

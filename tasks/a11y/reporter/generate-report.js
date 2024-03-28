@@ -53,7 +53,7 @@ const argv = minimist(process.argv.slice(2));
 
 let inputPath = argv.inputDir;
 let outputPath = argv.outputDir;
-let templatePath = 'templates';
+let templatePath = argv.templateDir;
 
 const g = new Glob(`${inputPath}/*`, {});
 const totalLength = g.walkSync().length;
