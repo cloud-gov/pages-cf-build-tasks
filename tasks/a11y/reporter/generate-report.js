@@ -20,8 +20,10 @@ async function renderFromTemplate(renderData, accumulator, filePath, outputDir, 
 function groupViolations(allViolations) {
   let groups = {};
   let matchingViolations = groupBy(allViolations, (violation) => violation.impact)
-  utils.allSeverities.forEach(key => {
-    groups[key] = matchingViolations[key] || [];
+  utils.severity.forEach(({ name }) => {
+    if (!!matchingViolations[name]) {
+      return groups[name] = matchingViolations[name] || [];
+    }
   })
   return groups;
 }
@@ -33,12 +35,13 @@ function enhanceViolations(allViolations) {
     ...check,
     icon: utils.getMatchingSeverity(check.impact).svg,
     color: utils.getMatchingSeverity(check.impact).color,
-    impact: check.impact ?? 'n/a',
+    impact: check.impact ?? 'other',
     description: check.description.replace(/\bEnsures\b/g, 'Ensure'),
   })).sort(sortByNodesLength)
 }
 
 function prepareResults(results) {
+  let groupedViolations = groupViolations(enhanceViolations([ ...results.violations]));
   return {
     ...results,
     // sort passes by #
@@ -46,9 +49,10 @@ function prepareResults(results) {
       ...check,
     })).sort(sortByNodesLength),
     // group violations for more organized display
-    groupedViolations: groupViolations(enhanceViolations(results.violations)),
+    groupedViolations: groupedViolations,
   };
 }
+
 const argv = minimist(process.argv.slice(2));
 
 let inputPath = argv.inputDir;
@@ -59,7 +63,7 @@ const g = new Glob(`${inputPath}/*`, {});
 const totalLength = g.walkSync().length;
 
 let accumulator = {
-  baseurl: argv.target || "target not provided", // can we get this from pages?
+  baseurl: argv.target || "",
   totalPageCount: totalLength,
   totalViolationsCount: 0,
   currentPage: 0,
@@ -73,17 +77,30 @@ for await (const file of g) {
   let contents = JSON.parse(await fs.readFile(file, "utf8"));
   let thisPage = prepareResults(contents[0]);
   const fileName = path.parse(file).name
+  
+  let groupedViolationsCounts = [];
 
-  // file.substring(file.lastIndexOf('/'), file.lastIndexOf('.')) || file;
+  Object.keys(thisPage.groupedViolations).forEach(( name ) => {
+      groupedViolationsCounts.push({ name: name, count: thisPage.groupedViolations[name].length })
+    });
+  let indexPills = groupedViolationsCounts.slice(0, 2);
+
+  let moreCount = groupedViolationsCounts.slice(2).reduce((total, pill) => total + pill.count,
+    0,)
 
   await renderFromTemplate(thisPage, accumulator, fileName, outputPath, templatePath, "reportPage.ejs").then(() => {
+
+
+
     accumulator.reportPages.push({
       path: `${fileName}.html`,
-      url: thisPage.url,
+      absoluteURL: thisPage.url,
+      relativeURL: thisPage.url.split(accumulator.baseurl)[1],
       timestamp: thisPage.timestamp,
       violationsCount: thisPage.violations.length,
-      groupedViolationsCounts: Object.fromEntries(
-        utils.allSeverities.map(severity => [severity, thisPage.groupedViolations[severity].length]))
+      groupedViolationsCounts: groupedViolationsCounts,
+      indexPills: indexPills,
+      moreCount: moreCount
     });
 
     accumulator.currentPage++;

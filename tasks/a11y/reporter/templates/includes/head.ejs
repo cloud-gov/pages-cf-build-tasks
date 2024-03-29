@@ -9,9 +9,17 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
+    html {
+      font-size: 18px;
+    }
+
     pre {
       white-space: normal;
       max-width: 80rem;
+    }
+
+    .narrow-mono {
+      letter-spacing: -.02em;
     }
 
     .hljs {
@@ -66,6 +74,12 @@
         position: fixed;
         bottom: 0;
       }
+    }
+    /* fix contrast to cyan 50v */
+    .bg-info-dark, 
+    .hover\:bg-info-dark:hover {
+      background-color: #0081a1;
+
     }
   </style>
 </head>

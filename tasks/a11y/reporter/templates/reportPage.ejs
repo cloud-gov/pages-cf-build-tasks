@@ -16,7 +16,7 @@
   <main class="grid-container" id="#top">
     <div class="grid-row">
       <h1 class="font-heading-xl grid-col padding-right-2">WCAG scan results for <br /><span
-          class="font-code-lg text-normal text-primary-darker bg-accent-cool-lighter padding-x-05"><%= url %></span>
+          class="font-code-lg text-normal text-primary-darker bg-accent-cool-lighter padding-x-05r narrow-mono"><%= url %></span>
       </h1>
       <span class="grid-col-auto inline-block margin-y-4">
       <a id="pages-logo" href="https://cloud.gov/pages" target="_blank"
@@ -80,10 +80,10 @@
       </section>
 
       <div class="tablet:grid-col tablet:margin-left-4 ">
-        <% if (violations.length && groupedViolations) { %>
         <h2 class="font-heading-xl margin-bottom-1 margin-top-3">
           All WCAG violations <span class="font-body-xl text-secondary-vivid">(<%= violations.length -%>)</span>
         </h2>
+        <% if (violations.length && groupedViolations) { %>
 
         <% for (const group in groupedViolations) { %>
         <% if (groupedViolations[group].length> 0 ) { %>
@@ -113,10 +113,10 @@
               <h4 class="font-body-lg margin-bottom-0"
                 id="<%= group %>-violation-<%= (index + 1) %>-element-<%= (nodeindex + 1) %>">Related element:
                 <code
-                  class="css text-normal font-mono-md line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere"><%= node.target %></code>
+                  class="css text-normal narrow-mono font-mono-md line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere"><%= node.target %></code>
               </h4>
               <h5 class="margin-bottom-0 font-body-sm text-semibold">Location in page:</h5>
-              <pre><code class="html text-wrap font-mono-xs line-height-mono-4"><%= node.html %></code></pre>
+              <pre><code class="html text-wrap font-mono-xs line-height-mono-4 narrow-mono"><%= node.html %></code></pre>
               <div>
                 <% if (node.failureSummary) { %>
                 <div class="usa-summary-box margin-top-3" role="region"
@@ -149,9 +149,9 @@
         <% } %>
         <% } %>
         <% } else { %>
-        <section class="usa-alert usa-alert--success maxw-tablet">
+        <section class="usa-alert usa-alert--success maxw-tablet margin-y-3">
           <div class="usa-alert__body">
-            <p class="usa-alert__text">No WCAG violations found!.</p>
+            <p class="usa-alert__text">No WCAG violations found.</p>
           </div>
         </section>
         <% } %>
@@ -188,7 +188,7 @@
           </table>
         </details>
         <hr />
-        <p>URL scanned: <code><%= url %></code></p>
+        <p>URL scanned: <code class="narrow-mono"><%= url %></code></p>
         <p>
           Page <%= accumulator.currentPage %> of <%= accumulator.totalPageCount %> total pages scanned on
           <%=  utils.timestampReadable(timestamp) %>
