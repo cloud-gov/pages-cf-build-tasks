@@ -47,8 +47,10 @@
               <tr class="height-5">
                 <th scope="col">
                   <!-- <span class="usa-tag radius-pill bg-<%= utils.getMatchingSeverity(group).color %>"><%= group %></span><br> -->
-                  <a href="#violations-group-<%= group %>-checks"
-                    class="usa-tag--big usa-tag text-uppercase usa-button radius-pill bg-<%= utils.getMatchingSeverity(group).color %>"><%= group %></a>
+                  <a href="#<%= group %>-violations" title="Jump to <%= group %> violations"
+                    class="usa-tag--big usa-tag text-uppercase usa-button radius-pill bg-<%= utils.getMatchingSeverity(group).color %>"><%= group %>
+                    <span class="usa-sr-only"> <%= utils.plural(group.length, 'violation' ) %>,</span>
+                  </a>
                 </th>
                 <td scope="col" class="font-mono-sm text-tabular text-right line-height-body-3">
                   <%=groupedViolations[group].length -%>
@@ -87,10 +89,11 @@
 
         <% for (const group in groupedViolations) { %>
         <% if (groupedViolations[group].length> 0 ) { %>
-        <a id="violations-group-<%= group %>-checks"></a>
+        <a id="<%= group %>-violations"></a>
         <div class="margin-y-2 padding-bottom-2">
 
           <% groupedViolations[group].forEach( function(check, index) { %>
+          <a id="<%= group %>-violation-<%= index + 1 %>"></a>
           <div class="bg-white padding-top-05 sticky">
             <h3 class="font-heading-lg margin-y-105">
               <%= check.help %>. <span
@@ -99,7 +102,7 @@
             <p class="font-body-md padding-bottom-2 border-bottom-1px">
               <%= check.description -%> in <b> <%= check.nodes.length%>
                 <%= utils.plural(check.nodes.length, 'location' ) %></b>.
-              <a href="<%= check.helpUrl %>" target="_blank" class="usa-link font-body-sm">Learn
+              <a href="<%= check.helpUrl %>" target="_blank" class="usa-link font-body-sm" aria-label="Learn more about this rule">Learn
                 more <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
                   width="24">
                   <path fill="currentColor"
@@ -110,8 +113,9 @@
           <ol class="margin-top-4">
             <% for (const [nodeindex, node] of check.nodes.entries()) { %>
             <li class="margin-bottom-4 margin-left-2 font-mono-lg">
-              <h4 class="font-body-lg margin-bottom-0"
-                id="<%= group %>-violation-<%= (index + 1) %>-element-<%= (nodeindex + 1) %>">Related element:
+            <a id="<%= group %>-violation-<%= (index + 1) %>-element-<%= (nodeindex + 1) %>"></a>
+              <h4 class="font-body-lg margin-bottom-0">
+                Related element:
                 <code
                   class="css text-normal narrow-mono font-mono-md line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere"><%= node.target %></code>
               </h4>

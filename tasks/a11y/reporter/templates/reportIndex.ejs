@@ -38,13 +38,13 @@
     </section>
 
     <table
-      class="usa-table usa-table--striped usa-table--borderless usa-table--stacked usa-table--compact font-body-xs width-full">
+      class="usa-table usa-table--striped usa-table--borderless usa-table--stacked usa-table--compact font-body-xs width-full" aria-label="Scan results list with links to detailed reports">
       <thead>
         <tr>
           <th scope="col">Scanned URL</th>
-          <th scope="col" class="text-no-wrap width-10"><span class="usa-sr-only">Open link</a></th>
+          <th scope="col" class="text-no-wrap width-10"><span class="usa-sr-only">Open URL in new window</a></th>
           <th scope="col" class="text-no-wrap width-15 tablet:width-card-lg">WCAG violations</th>
-          <th scope="col" class="text-right text-no-wrap width-10">Scan results</th>
+          <th scope="col" class="mobile-lg:text-right text-no-wrap width-10">Scan results</th>
         </tr>
       </thead>
 
@@ -52,12 +52,13 @@
         <% for(const [index, page] of accumulator.reportPages.entries()) { -%>
         <tr>
           <th scope="row">
-            <span class="mobile-lg:display-none">Scanned URL: <br/></span>
-            <span class="font-mono-2xs narrow-mono break-anywhere">
+            <b class="usa-sr-only">Scanned URL: <br/></b>
+            <span class="font-mono-2xs narrow-mono break-anywhere" aria-label="dot <%= page.relativeURL %>,">
               .<%= page.relativeURL %>
-            </span></td>
+            </span>
+          </th>
           <td>
-            <a class="usa-link font-body-3xs text-no-wrap" target="_blank" title="open scanned URL in a new window"
+            <a class="usa-link font-body-3xs text-no-wrap" target="_blank" aria-label="open scanned URL in a new window," title="open scanned URL in a new window"
               href="<%= page.absoluteURL -%>">open URL <svg class="usa-icon text-ttop"
                 xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                 <path fill="currentColor"
@@ -65,7 +66,7 @@
               </svg></a>
           </td>
           <td class="font-body-xs text-no-wrap">
-            <span class="mobile-lg:display-none">Violations: <br/></span>
+            <b class="usa-sr-only">Violations: <br /></b>
             <% if (page.violationsCount < 1) {%>
                 None
             <% } else if (page.indexPills.length < 1) {%>
@@ -76,15 +77,16 @@
                   <span class="usa-tag radius-pill bg-<%= utils.getMatchingSeverity(pill.name).color %> margin-right-1">
                     <%= pill.count %>&nbsp;<%= pill.name %>
                   </span>
+                  <span class="usa-sr-only"> <%= utils.plural(pill.count, 'violation' ) %>,</span>
                 <% } %>
               <% if (page.moreCount > 0) {%>
                 <b>+ <%= page.moreCount %> more</b>
               <% } %>
             <% } %>
           </td>
-          <td class="text-right ">
+          <td class="mobile-lg:text-right ">
             <a class="usa-link text-bold font-body-xs text-no-wrap" href="./<%= page.path %>"
-              title="Full results for <%= page.absoluteURL %>">View results</a>
+              title="Full results for <%= page.absoluteURL %>" aria-label="Full results for dot <%= page.relativeURL %>,">View results</a>
           </td>
         </tr>
         <% } %>
