@@ -1,5 +1,7 @@
-from lib.task import BaseBuildTask
 import subprocess
+import re
+
+from lib.task import BaseBuildTask
 
 
 class BuildTask(BaseBuildTask):
@@ -11,10 +13,25 @@ class BuildTask(BaseBuildTask):
     def handler(self):
         """scan"""
         filename = 'report.html'
-        subprocess.run([
+
+        output = subprocess.run([
             'zap-baseline.py',
             '-t', self.args['target'],
             '-r', filename
-        ], timeout=900)
+        ], timeout=900, capture_output=True, text=True)
 
-        return f'/zap/wrk/{filename}'
+        # regex test on output for count
+        summary_regex = r'FAIL-NEW:\s+(\d+)\s+FAIL-INPROG:\s+(\d+)\s+WARN-NEW:\s+(\d+)\s+WARN-INPROG:\s+(\d+)\s+INFO:\s+(\d+)\s+IGNORE:\s+(\d+)\s+PASS:\s+(\d+)'  # noqa: E501
+        match = re.search(summary_regex, output.stdout)
+
+        # sum everything except pass
+        try:
+            count = sum([int(n) for n in match.groups()[0:6]])
+        except Exception:
+            count = 0
+
+        return dict(
+            artifact=f'/zap/wrk/{filename}',
+            message=None,
+            count=count,
+        )

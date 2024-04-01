@@ -59,6 +59,8 @@ class BaseBuildTask:
         self.logger.info(f'Task {self.task_id} is complete')
         requests.put(self.status_callback, json={
             "artifact": self.key,
+            "message": self.results["message"],
+            "count": self.results["count"],
             "status": "success"
         })
 
@@ -66,17 +68,18 @@ class BaseBuildTask:
         """callback"""
         self.logger.error(f'Task {self.task_id} errored: {err}')
         requests.put(self.status_callback, json={
-            "status": "error"
+            "status": "error",
+            "message": err
         })
 
     def upload_file(self):
         """upload file to S3"""
-
-        base = os.path.basename(self.filename)
+        filename = self.results["artifact"]
+        base = os.path.basename(filename)
         self.key = f'_tasks/artifacts/{self.task_id}/{base}'
 
         self.s3_client.upload_file(
-            Filename=self.filename,
+            Filename=filename,
             Bucket=self.bucket,
             Key=self.key,
         )

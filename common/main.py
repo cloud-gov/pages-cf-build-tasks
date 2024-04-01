@@ -8,7 +8,7 @@ if __name__ == "__main__":
 
         try:
             task.status_start()
-            task.filename = task.handler()
+            task.results = task.handler()
             task.upload_file()
             task.status_end()
         except NotImplementedError:
