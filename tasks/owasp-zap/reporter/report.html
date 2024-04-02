@@ -1,0 +1,2598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vulnerability scan results for https://demo.adlnet.gov on Wed, 13 Dec 2023 22:10:53</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.8.0/css/uswds.min.css"
+    integrity="sha512-fxBZVlVQrZVKTlt4kr/hPDd1p0SYHuQxytgI9ccrYonBfAFTXbGPSL08YdYUA8DPXpW25F5G+nOjQK76s5USQQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    html {
+      font-size: 18px;
+    }
+
+    pre {
+      white-space: normal;
+      max-width: 80rem;
+    }
+    h5 {
+      font-size: 20px;
+      margin: 1.5em 0 -.5em;
+    }
+
+    .usa-prose > p {
+      line-height: 1.8;
+      max-width: 80ex;
+    }
+
+    .narrow-mono {
+      letter-spacing: -.02em;
+    }
+
+    .hljs {
+      white-space: pre-wrap;
+      overflow-x: scroll;
+      width: 100%;
+      background: #f2f4f5 !important;
+      color: black !important;
+      line-break: anywhere;
+    }
+
+    .hljs .hljs-punctuation,
+    .hljs .hljs-tag {
+      color: #4b4b4b;
+    }
+
+    .hljs .hljs-tag .hljs-attr {
+      color: #05236c;
+    }
+
+    .hljs .hljs-tag .hljs-name {
+      color: #04363f;
+    }
+
+    .hljs .hljs-tag .hljs-string {
+      color: #510438;
+      font-style: italic;
+    }
+
+    .usa-tag {
+      font-weight: 600;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: 0.01em;
+    }
+
+    .usa-tag.usa-button {
+      padding: 6px 12px;
+    }
+
+    .sticky {
+      position: sticky;
+      top: 0;
+      z-index: 100
+    }
+
+    .break-anywhere {
+      line-break: anywhere;
+    }
+
+    @media (min-width: 40em) {
+      .back-to-top {
+        position: fixed;
+        bottom: 0;
+      }
+    }
+    /* fix contrast to cyan 50v */
+    .bg-info-dark, 
+    .hover\:bg-info-dark:hover {
+      background-color: #0081a1;
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="grid-container" id="#top">
+    <div class="grid-row">
+      <h1 class="font-heading-xl grid-col padding-right-2">Vulnerability scan results for <br /><span
+          class="font-code-lg text-normal text-primary-darker bg-accent-cool-lighter padding-x-05r narrow-mono">https://demo.adlnet.gov</span>
+      </h1>
+      <span class="grid-col-auto inline-block margin-y-4">
+      <a id="pages-logo" href="https://cloud.gov/pages" target="_blank"
+        title="link to Pages homepage"><img src="https://cloud.gov/assets/images/pages/pages-logo-blue.svg"
+          class="width-15" alt="Pages logo" /></a>
+      </span>
+    </div>
+    <div class="grid-row border-top-1px padding-top-1">
+      <section class="tablet:grid-col-auto">
+        <nav class="sticky">
+          <table class="width-full tablet:width-auto usa-table usa-table--compact usa-table--borderless summary-table">
+            <caption class="usa-sr-only">
+              Summary of alerts by severity and count
+            </caption>
+            <thead>
+              <tr class="height-5">
+                <th scope="col" role="columnheader">
+                  Severity
+                </th>
+                <th class="text-right" scope="col" role="columnheader">
+                  Count
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                
+                  
+                
+                  
+                      <tr class="height-5">
+                        <th scope="col">
+                      
+                          <a href="#Medium-alerts"
+                            title="Jump to Medium alerts"
+                            class="usa-tag--big usa-tag text-uppercase usa-button radius-pill bg-error-dark">Medium
+                            <span class="usa-sr-only"> alerts,</span>
+                          </a>
+                        </th>
+                        <td scope="col" class="font-mono-sm text-tabular text-right line-height-body-3">
+                          2                        </td>
+                      </tr>
+                  
+                
+                  
+                      <tr class="height-5">
+                        <th scope="col">
+                      
+                          <a href="#Low-alerts"
+                            title="Jump to Low alerts"
+                            class="usa-tag--big usa-tag text-uppercase usa-button radius-pill bg-accent-warm-dark">Low
+                            <span class="usa-sr-only"> alerts,</span>
+                          </a>
+                        </th>
+                        <td scope="col" class="font-mono-sm text-tabular text-right line-height-body-3">
+                          2                        </td>
+                      </tr>
+                  
+                
+                  
+                      <tr class="height-5">
+                        <th scope="col">
+                      
+                          <a href="#Informational-alerts"
+                            title="Jump to Informational alerts"
+                            class="usa-tag--big usa-tag text-uppercase usa-button radius-pill bg-info-dark">Informational
+                            <span class="usa-sr-only"> alerts,</span>
+                          </a>
+                        </th>
+                        <td scope="col" class="font-mono-sm text-tabular text-right line-height-body-3">
+                          4                        </td>
+                      </tr>
+                  
+                
+                  
+                
+              
+              <tr class="height-5">
+                <th scope="col">
+                  <b>Total Alerts</b>
+                </th>
+                <td scope="col" class="font-mono-sm text-tabular text-right line-height-body-3">
+                  <b>8</b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="font-body-3xs">Scanned December 13, 2023 at 10:10 PM</p>
+        </nav>
+      </section>
+      <div class="tablet:grid-col tablet:margin-left-4 ">
+        <h2 class="font-heading-xl margin-bottom-1 margin-top-3">
+          All alerts <span class="font-body-xl text-secondary-vivid">(8)</span>
+        </h2>
+        
+          
+            
+          
+            
+              <a id="Medium-alerts"></a>
+              <div class="margin-y-2 padding-bottom-2">
+                
+                  
+                    <a id="alert-10202"></a>
+                    <div class="bg-white padding-top-05 sticky">
+                      <h3 class="font-heading-lg margin-y-105">
+                        Absence of Anti-CSRF Tokens
+                        <span
+                          class="usa-tag bg-error-dark radius-pill text-middle">Medium</span>
+                      </h3>
+                      <p class="font-body-md padding-bottom-2 border-bottom-1px">
+                        Identified in <b> 12
+                        locations</b>.
+                        
+                          <a href="
+http://projects.webappsec.org/Cross-Site-Request-Forgery" target="_blank" class="usa-link font-body-sm"
+                            aria-label="Learn more about this rule">Learn
+                            more <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                        
+                      </p>
+                    </div>
+                    <div class="usa-prose font-serif-xs line-height-serif-6 margin-y-3">
+                      <p>No Anti-CSRF tokens were found in a HTML submission form.</p>
+<p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p>
+<p>CSRF attacks are effective in a number of situations, including:</p>
+<ul>
+<li>The victim has an active session on the target site.</li>
+<li>The victim is authenticated via HTTP auth on the target site.</li>
+<li>The victim is on the same local network as the target site.</li>
+</ul>
+<p>CSRF has primarily been used to perform an action against a target site using the victim&#39;s privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>
+
+                      
+                        <h4>References</h4>
+                        <ul>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="
+http://projects.webappsec.org/Cross-Site-Request-Forgery">
+http://projects.webappsec.org/Cross-Site-Request-Forgery</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="http://cwe.mitre.org/data/definitions/352.html
+">http://cwe.mitre.org/data/definitions/352.html
+</a></li>
+                        
+                        </ul>
+                      
+                    </div>
+                    <div class="usa-summary-box maxw-tablet margin-y-4" role="region"
+                      aria-labelledby="alert-10202-solution">
+                      <h4 class="usa-summary-box__heading" id="alert-10202-solution">
+                        Recommendation(s)
+                      </h4>
+                      <div class="usa-summary-box__body margin-bottom-neg-2">
+                        <h5>Phase: Architecture and Design</h5>
+<p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p>
+<p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p>
+<h5>Phase: Implementation</h5>
+<p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p>
+<h5>Phase: Architecture and Design</h5>
+<p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p>
+<p>Note that this can be bypassed using XSS.</p>
+<p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p>
+<p>Note that this can be bypassed using XSS.</p>
+<p>Use the ESAPI Session Management control.</p>
+<p>This control includes a component for CSRF.</p>
+<p>Do not use the GET method for any request that triggers a state change.</p>
+<h5>Phase: Implementation</h5>
+<p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>
+                      </div>
+                    </div>
+                    <h3 class="font-body-lg margin-y-2">
+                      Location(s) to investigate:
+                    </h3>
+                    <ol class="margin-top-4">
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-1"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov" class="usa-link" target="_blank">https://demo.adlnet.gov
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-2"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov" class="usa-link" target="_blank">https://demo.adlnet.gov
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-3"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/" class="usa-link" target="_blank">https://demo.adlnet.gov/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-4"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/" class="usa-link" target="_blank">https://demo.adlnet.gov/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-5"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-6"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-7"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/partners/" class="usa-link" target="_blank">https://demo.adlnet.gov/partners/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-8"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/partners/" class="usa-link" target="_blank">https://demo.adlnet.gov/partners/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-9"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-10"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-11"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/research/" class="usa-link" target="_blank">https://demo.adlnet.gov/research/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10202-instance-12"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/research/" class="usa-link" target="_blank">https://demo.adlnet.gov/research/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;form
+          accept-charset=&#34;UTF-8&#34;
+          action=&#34;https://search.usa.gov/search&#34;
+          method=&#34;get&#34;
+          class=&#34;usa-search usa-search--small&#34;
+          role=&#34;search&#34;
+        &gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                    </ol>
+                  
+                
+                  
+                    <a id="alert-10038-1"></a>
+                    <div class="bg-white padding-top-05 sticky">
+                      <h3 class="font-heading-lg margin-y-105">
+                        Content Security Policy (CSP) Header Not Set
+                        <span
+                          class="usa-tag bg-error-dark radius-pill text-middle">Medium</span>
+                      </h3>
+                      <p class="font-body-md padding-bottom-2 border-bottom-1px">
+                        Identified in <b> 12
+                        locations</b>.
+                        
+                          <a href="
+https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy" target="_blank" class="usa-link font-body-sm"
+                            aria-label="Learn more about this rule">Learn
+                            more <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                        
+                      </p>
+                    </div>
+                    <div class="usa-prose font-serif-xs line-height-serif-6 margin-y-3">
+                      <p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>
+
+                      
+                        <h4>References</h4>
+                        <ul>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="
+https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy">
+https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html">https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="http://www.w3.org/TR/CSP/">http://www.w3.org/TR/CSP/</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html">http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="http://www.html5rocks.com/en/tutorials/security/content-security-policy/">http://www.html5rocks.com/en/tutorials/security/content-security-policy/</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="http://caniuse.com/#feat=contentsecuritypolicy">http://caniuse.com/#feat=contentsecuritypolicy</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="http://content-security-policy.com/
+">http://content-security-policy.com/
+</a></li>
+                        
+                        </ul>
+                      
+                    </div>
+                    <div class="usa-summary-box maxw-tablet margin-y-4" role="region"
+                      aria-labelledby="alert-10038-1-solution">
+                      <h4 class="usa-summary-box__heading" id="alert-10038-1-solution">
+                        Recommendation(s)
+                      </h4>
+                      <div class="usa-summary-box__body margin-bottom-neg-2">
+                        <p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</p>
+                      </div>
+                    </div>
+                    <h3 class="font-body-lg margin-y-2">
+                      Location(s) to investigate:
+                    </h3>
+                    <ol class="margin-top-4">
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-1"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov" class="usa-link" target="_blank">https://demo.adlnet.gov
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-2"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/" class="usa-link" target="_blank">https://demo.adlnet.gov/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-3"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-4"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/history/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/history/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-5"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/organization/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/organization/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-6"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/stakeholders/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/stakeholders/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-7"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/contact/" class="usa-link" target="_blank">https://demo.adlnet.gov/contact/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-8"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/news/" class="usa-link" target="_blank">https://demo.adlnet.gov/news/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-9"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/partners/" class="usa-link" target="_blank">https://demo.adlnet.gov/partners/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-10"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-11"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/research/" class="usa-link" target="_blank">https://demo.adlnet.gov/research/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10038-1-instance-12"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/resources/" class="usa-link" target="_blank">https://demo.adlnet.gov/resources/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                        
+
+                      
+                      </li>
+                      
+                    </ol>
+                  
+                
+              </div>
+            
+          
+            
+              <a id="Low-alerts"></a>
+              <div class="margin-y-2 padding-bottom-2">
+                
+                  
+                    <a id="alert-10017"></a>
+                    <div class="bg-white padding-top-05 sticky">
+                      <h3 class="font-heading-lg margin-y-105">
+                        Cross-Domain JavaScript Source File Inclusion
+                        <span
+                          class="usa-tag bg-accent-warm-dark radius-pill text-middle">Low</span>
+                      </h3>
+                      <p class="font-body-md padding-bottom-2 border-bottom-1px">
+                        Identified in <b> 11
+                        locations</b>.
+                        
+                      </p>
+                    </div>
+                    <div class="usa-prose font-serif-xs line-height-serif-6 margin-y-3">
+                      <p>The page includes one or more script files from a third-party domain.</p>
+
+                      
+                    </div>
+                    <div class="usa-summary-box maxw-tablet margin-y-4" role="region"
+                      aria-labelledby="alert-10017-solution">
+                      <h4 class="usa-summary-box__heading" id="alert-10017-solution">
+                        Recommendation(s)
+                      </h4>
+                      <div class="usa-summary-box__body margin-bottom-neg-2">
+                        <p>Ensure JavaScript source files are loaded from only trusted sources, and the sources can&#39;t be controlled by end users of the application.</p>
+                      </div>
+                    </div>
+                    <h3 class="font-body-lg margin-y-2">
+                      Location(s) to investigate:
+                    </h3>
+                    <ol class="margin-top-4">
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-1"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov" class="usa-link" target="_blank">https://demo.adlnet.gov
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-2"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/" class="usa-link" target="_blank">https://demo.adlnet.gov/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-3"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-4"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/history/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/history/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-5"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/organization/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/organization/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-6"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/contact/" class="usa-link" target="_blank">https://demo.adlnet.gov/contact/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-7"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/news/" class="usa-link" target="_blank">https://demo.adlnet.gov/news/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-8"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/partners/" class="usa-link" target="_blank">https://demo.adlnet.gov/partners/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-9"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-10"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/research/" class="usa-link" target="_blank">https://demo.adlnet.gov/research/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10017-instance-11"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/resources/" class="usa-link" target="_blank">https://demo.adlnet.gov/resources/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;script
+      id=&#34;_fed_an_ua_tag&#34;
+      src=&#34;https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOD&#34;
+    &gt;&lt;/script&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                    </ol>
+                  
+                
+                  
+                    <a id="alert-10096"></a>
+                    <div class="bg-white padding-top-05 sticky">
+                      <h3 class="font-heading-lg margin-y-105">
+                        Timestamp Disclosure - Unix
+                        <span
+                          class="usa-tag bg-accent-warm-dark radius-pill text-middle">Low</span>
+                      </h3>
+                      <p class="font-body-md padding-bottom-2 border-bottom-1px">
+                        Identified in <b> 10
+                        locations</b>.
+                        
+                          <a href="
+http://projects.webappsec.org/w/page/13246936/Information%20Leakage
+" target="_blank" class="usa-link font-body-sm"
+                            aria-label="Learn more about this rule">Learn
+                            more <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                        
+                      </p>
+                    </div>
+                    <div class="usa-prose font-serif-xs line-height-serif-6 margin-y-3">
+                      <p>A timestamp was disclosed by the application/web server - Unix</p>
+
+                      
+                        <h4>References</h4>
+                        <ul>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="
+http://projects.webappsec.org/w/page/13246936/Information%20Leakage
+">
+http://projects.webappsec.org/w/page/13246936/Information%20Leakage
+</a></li>
+                        
+                        </ul>
+                      
+                    </div>
+                    <div class="usa-summary-box maxw-tablet margin-y-4" role="region"
+                      aria-labelledby="alert-10096-solution">
+                      <h4 class="usa-summary-box__heading" id="alert-10096-solution">
+                        Recommendation(s)
+                      </h4>
+                      <div class="usa-summary-box__body margin-bottom-neg-2">
+                        <p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>
+                      </div>
+                    </div>
+                    <h3 class="font-body-lg margin-y-2">
+                      Location(s) to investigate:
+                    </h3>
+                    <ol class="margin-top-4">
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10096-instance-1"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/references/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/references/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">2002514180</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10096-instance-2"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/related/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/related/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">2002085866</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10096-instance-3"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/related/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/related/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">2002156622</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10096-instance-4"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/related/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/related/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">2002514180</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10096-instance-5"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/related/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/related/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">2002638551</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10096-instance-6"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/related/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/related/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">2002932833</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10096-instance-7"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/related/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/related/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">2003066362</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10096-instance-8"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/related/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/related/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">2003103845</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10096-instance-9"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/research/" class="usa-link" target="_blank">https://demo.adlnet.gov/research/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">2002514180</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10096-instance-10"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/research/" class="usa-link" target="_blank">https://demo.adlnet.gov/research/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">2002932833</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                    </ol>
+                  
+                
+              </div>
+            
+          
+            
+              <a id="Informational-alerts"></a>
+              <div class="margin-y-2 padding-bottom-2">
+                
+                  
+                    <a id="alert-10027"></a>
+                    <div class="bg-white padding-top-05 sticky">
+                      <h3 class="font-heading-lg margin-y-105">
+                        Information Disclosure - Suspicious Comments
+                        <span
+                          class="usa-tag bg-info-dark radius-pill text-middle">Informational</span>
+                      </h3>
+                      <p class="font-body-md padding-bottom-2 border-bottom-1px">
+                        Identified in <b> 12
+                        locations</b>.
+                        
+                      </p>
+                    </div>
+                    <div class="usa-prose font-serif-xs line-height-serif-6 margin-y-3">
+                      <p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>
+
+                      
+                    </div>
+                    <div class="usa-summary-box maxw-tablet margin-y-4" role="region"
+                      aria-labelledby="alert-10027-solution">
+                      <h4 class="usa-summary-box__heading" id="alert-10027-solution">
+                        Recommendation(s)
+                      </h4>
+                      <div class="usa-summary-box__body margin-bottom-neg-2">
+                        <p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>
+                      </div>
+                    </div>
+                    <h3 class="font-body-lg margin-y-2">
+                      Location(s) to investigate:
+                    </h3>
+                    <ol class="margin-top-4">
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-1"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/assets/js/expand-accordion/accordion.js" class="usa-link" target="_blank">https://demo.adlnet.gov/assets/js/expand-accordion/accordion.js
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">from</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-2"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/assets/js/swiper-7.0.7/js/swiper-bundle.min.js" class="usa-link" target="_blank">https://demo.adlnet.gov/assets/js/swiper-7.0.7/js/swiper-bundle.min.js
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">select</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-3"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/assets/uswds-2.13.0/js/uswds.min.js" class="usa-link" target="_blank">https://demo.adlnet.gov/assets/uswds-2.13.0/js/uswds.min.js
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">query</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-4"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/publications/" class="usa-link" target="_blank">https://demo.adlnet.gov/publications/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">query</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-5"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/organization/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/organization/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">from</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-6"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/organization/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/organization/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">where</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-7"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/news/page/4/" class="usa-link" target="_blank">https://demo.adlnet.gov/news/page/4/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">from</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-8"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/news/page/4/" class="usa-link" target="_blank">https://demo.adlnet.gov/news/page/4/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">user</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-9"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/news/page/7/" class="usa-link" target="_blank">https://demo.adlnet.gov/news/page/7/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">from</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-10"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/projects/cmi5-specification/" class="usa-link" target="_blank">https://demo.adlnet.gov/projects/cmi5-specification/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">From</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-11"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/publications/" class="usa-link" target="_blank">https://demo.adlnet.gov/publications/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">where</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10027-instance-12"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/video-library/" class="usa-link" target="_blank">https://demo.adlnet.gov/video-library/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">from</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                    </ol>
+                  
+                
+                  
+                    <a id="alert-10109"></a>
+                    <div class="bg-white padding-top-05 sticky">
+                      <h3 class="font-heading-lg margin-y-105">
+                        Modern Web Application
+                        <span
+                          class="usa-tag bg-info-dark radius-pill text-middle">Informational</span>
+                      </h3>
+                      <p class="font-body-md padding-bottom-2 border-bottom-1px">
+                        Identified in <b> 11
+                        locations</b>.
+                        
+                      </p>
+                    </div>
+                    <div class="usa-prose font-serif-xs line-height-serif-6 margin-y-3">
+                      <p>The application appears to be a modern web application. If you need to explore it automatically then the Ajax Spider may well be more effective than the standard one.</p>
+
+                      
+                    </div>
+                    <div class="usa-summary-box maxw-tablet margin-y-4" role="region"
+                      aria-labelledby="alert-10109-solution">
+                      <h4 class="usa-summary-box__heading" id="alert-10109-solution">
+                        Recommendation(s)
+                      </h4>
+                      <div class="usa-summary-box__body margin-bottom-neg-2">
+                        <p>This is an informational alert and so no changes are required.</p>
+                      </div>
+                    </div>
+                    <h3 class="font-body-lg margin-y-2">
+                      Location(s) to investigate:
+                    </h3>
+                    <ol class="margin-top-4">
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-1"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov" class="usa-link" target="_blank">https://demo.adlnet.gov
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-2"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/" class="usa-link" target="_blank">https://demo.adlnet.gov/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-3"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-4"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/history/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/history/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-5"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/organization/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/organization/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-6"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/contact/" class="usa-link" target="_blank">https://demo.adlnet.gov/contact/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-7"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/news/" class="usa-link" target="_blank">https://demo.adlnet.gov/news/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-8"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/partners/" class="usa-link" target="_blank">https://demo.adlnet.gov/partners/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-9"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-10"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/research/" class="usa-link" target="_blank">https://demo.adlnet.gov/research/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10109-instance-11"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/resources/" class="usa-link" target="_blank">https://demo.adlnet.gov/resources/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">&lt;a href=&#34;#&#34;&gt;Back to top&lt;/a&gt;</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                    </ol>
+                  
+                
+                  
+                    <a id="alert-10015"></a>
+                    <div class="bg-white padding-top-05 sticky">
+                      <h3 class="font-heading-lg margin-y-105">
+                        Re-examine Cache-control Directives
+                        <span
+                          class="usa-tag bg-info-dark radius-pill text-middle">Informational</span>
+                      </h3>
+                      <p class="font-body-md padding-bottom-2 border-bottom-1px">
+                        Identified in <b> 11
+                        locations</b>.
+                        
+                          <a href="
+https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching" target="_blank" class="usa-link font-body-sm"
+                            aria-label="Learn more about this rule">Learn
+                            more <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                        
+                      </p>
+                    </div>
+                    <div class="usa-prose font-serif-xs line-height-serif-6 margin-y-3">
+                      <p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>
+
+                      
+                        <h4>References</h4>
+                        <ul>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="
+https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching">
+https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="https://grayduck.mn/2021/09/13/cache-control-recommendations/
+">https://grayduck.mn/2021/09/13/cache-control-recommendations/
+</a></li>
+                        
+                        </ul>
+                      
+                    </div>
+                    <div class="usa-summary-box maxw-tablet margin-y-4" role="region"
+                      aria-labelledby="alert-10015-solution">
+                      <h4 class="usa-summary-box__heading" id="alert-10015-solution">
+                        Recommendation(s)
+                      </h4>
+                      <div class="usa-summary-box__body margin-bottom-neg-2">
+                        <p>For secure content, ensure the cache-control HTTP header is set with &quot;no-cache, no-store, must-revalidate&quot;. If an asset should be cached consider setting the directives &quot;public, max-age, immutable&quot;.</p>
+                      </div>
+                    </div>
+                    <h3 class="font-body-lg margin-y-2">
+                      Location(s) to investigate:
+                    </h3>
+                    <ol class="margin-top-4">
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-1"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov" class="usa-link" target="_blank">https://demo.adlnet.gov
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-2"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/" class="usa-link" target="_blank">https://demo.adlnet.gov/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-3"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/about/" class="usa-link" target="_blank">https://demo.adlnet.gov/about/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-4"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/contact/" class="usa-link" target="_blank">https://demo.adlnet.gov/contact/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-5"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/news/" class="usa-link" target="_blank">https://demo.adlnet.gov/news/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-6"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/partners/" class="usa-link" target="_blank">https://demo.adlnet.gov/partners/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-7"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/policy/" class="usa-link" target="_blank">https://demo.adlnet.gov/policy/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-8"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/research/" class="usa-link" target="_blank">https://demo.adlnet.gov/research/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-9"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/resources/" class="usa-link" target="_blank">https://demo.adlnet.gov/resources/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-10"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/robots.txt" class="usa-link" target="_blank">https://demo.adlnet.gov/robots.txt
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10015-instance-11"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/sitemap.xml" class="usa-link" target="_blank">https://demo.adlnet.gov/sitemap.xml
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Parameter:</h5>
+                          <p><code
+                              class="css text-normal narrow-mono font-mono-xs line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere">cache-control</code>
+                          </p>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">max-age=60</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                    </ol>
+                  
+                
+                  
+                    <a id="alert-10050"></a>
+                    <div class="bg-white padding-top-05 sticky">
+                      <h3 class="font-heading-lg margin-y-105">
+                        Retrieved from Cache
+                        <span
+                          class="usa-tag bg-info-dark radius-pill text-middle">Informational</span>
+                      </h3>
+                      <p class="font-body-md padding-bottom-2 border-bottom-1px">
+                        Identified in <b> 3
+                        locations</b>.
+                        
+                          <a href="
+https://tools.ietf.org/html/rfc7234" target="_blank" class="usa-link font-body-sm"
+                            aria-label="Learn more about this rule">Learn
+                            more <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                        
+                      </p>
+                    </div>
+                    <div class="usa-prose font-serif-xs line-height-serif-6 margin-y-3">
+                      <p>The content was retrieved from a shared cache. If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where caching servers such as &quot;proxy&quot; caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance. </p>
+
+                      
+                        <h4>References</h4>
+                        <ul>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="
+https://tools.ietf.org/html/rfc7234">
+https://tools.ietf.org/html/rfc7234</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="https://tools.ietf.org/html/rfc7231">https://tools.ietf.org/html/rfc7231</a></li>
+                        
+                          <li class="font-body-2xs"><a class="usa-link" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)
+">http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)
+</a></li>
+                        
+                        </ul>
+                      
+                    </div>
+                    <div class="usa-summary-box maxw-tablet margin-y-4" role="region"
+                      aria-labelledby="alert-10050-solution">
+                      <h4 class="usa-summary-box__heading" id="alert-10050-solution">
+                        Recommendation(s)
+                      </h4>
+                      <div class="usa-summary-box__body margin-bottom-neg-2">
+                        <p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p>
+<p>Cache-Control: no-cache, no-store, must-revalidate, private</p>
+<p>Pragma: no-cache</p>
+<p>Expires: 0</p>
+<p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request.</p>
+                      </div>
+                    </div>
+                    <h3 class="font-body-lg margin-y-2">
+                      Location(s) to investigate:
+                    </h3>
+                    <ol class="margin-top-4">
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10050-instance-1"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov" class="usa-link" target="_blank">https://demo.adlnet.gov
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">Hit from cloudfront</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10050-instance-2"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/" class="usa-link" target="_blank">https://demo.adlnet.gov/
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">Hit from cloudfront</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                      <li class="margin-bottom-4 margin-left-2 font-mono-md">
+                        <a id="alert-10050-instance-3"></a>
+                          <h4 class="font-body-md margin-bottom-0">
+                            
+                            On <a href="https://demo.adlnet.gov/%E2%80%9D" class="usa-link" target="_blank">https://demo.adlnet.gov/%E2%80%9D
+                            <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                              <path fill="currentColor"
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                            </svg></a>
+                            
+                          </h4>
+                        
+                        
+                          <h5 class="margin-bottom-0 font-body-sm">Location:</h5>
+                          <pre><code class="html text-wrap maxw-tablet font-mono-xs line-height-mono-4 narrow-mono">Hit from cloudfront</code></pre>
+                        
+                        
+
+                      
+                      </li>
+                      
+                    </ol>
+                  
+                
+              </div>
+            
+          
+            
+          
+        
+        <hr />
+        <section class="font-body-md line-height-body-5 margin-y-4 usa-prose">
+  <h2 class="font-heading-lg">
+    About this scan
+  </h2>
+  <p>Zed Attack Proxy (ZAP) is a free, open-source penetration testing tool. 
+  </p>
+  <hr />
+  <p class="font-body-xs">This scan is a service of <a href="https://cloud.gov/pages" target="_blank"
+      class="usa-link">cloud.gov
+      Pages</a>, powered by ZAP. Check out the <a href="#" target="_blank" class="usa-link">documentation</a> for
+    more information.
+  </p>
+</section>
+      </div>
+    </div>
+  
+    <div class="grid-row">
+      <div class="grid-col">
+        <span
+          class="display-block back-to-top margin-bottom-2"><a href="#top" class="usa-link">&uparrow; Back to top</a></span>
+      </div>
+    </div>
+    
+  </main>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.7.1/js/uswds.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer" defer></script> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+    integrity="sha512-hasIneQUHlh06VNBe7f6ZcHmeRTLIaQWFd43YriJ0UND19bvYRauxthDg8E4eVNPm9bRUhr5JGeqH7FRFXQu5g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>hljs.highlightAll();</script>
+</body>
+
+</html>
