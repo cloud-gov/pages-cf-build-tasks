@@ -67,7 +67,7 @@ jobs:
           image: cf-image
           params:
             TAG: ((.:build-task))-((deploy-env))
-        - put: image-repository-((deploy-env))
+        - put: image-repository
           params:
             image: image/image.tar # this might need output_mapping
             additional_tags: src/tag-list.txt
@@ -121,7 +121,7 @@ resources:
     source:
       url: ((slack-webhook-url))
 
-  - name: image-repository-((deploy-env))
+  - name: image-repository
     type: registry-image
     source:
       aws_access_key_id: ((ecr-aws-key))
