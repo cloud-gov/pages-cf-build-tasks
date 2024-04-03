@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('includes/head', { title: 'Index of WCAG scan results for '  + accumulator.baseurl + ' on ' + utils.timestampReadable(accumulator.reportPages[0].timestamp) }) %>
+
+<body>
+  <section class="usa-alert usa-alert--warning usa-alert--slim usa-alert--no-icon">
+    <div class="usa-alert__body">
+      <p class="usa-alert__text">
+        Please remember that <b>automated testing tools are limited and can only detect <i>some</i> accessibility
+          issues</b>.
+      </p>
+    </div>
+  </section>
+  <main class="grid-container">
+    <div class="grid-row">
+      <h1 class="font-heading-xl grid-col padding-right-2">WCAG scan results index for<br /><span
+          class=" font-code-lg text-normal text-primary-darker bg-accent-cool-lighter padding-x-05 narrow-mono">
+        <%= accumulator.baseurl %></span><span
+          class="font-body-md text-normal"> on <%=  utils.timestampReadable(accumulator.reportPages[0].timestamp) %></span>
+      </h1>
+      <span class="grid-col-auto inline-block margin-y-4">
+        <a id="pages-logo" href="https://cloud.gov/pages" target="_blank"
+          title="link to Pages homepage"><img src="https://cloud.gov/assets/images/pages/pages-logo-blue.svg"
+            class="width-15" alt="Pages logo" /></a>
+      </span>
+    </div>
+    <section
+      class="usa-alert usa-alert--<%= accumulator.totalViolationsCount > 0 ? 'error' : 'success' -%> maxw-desktop">
+      <div class="usa-alert__body">
+        <p class="usa-alert__text">We’ve found <b><%= accumulator.totalViolationsCount %> accessibility
+            <%= utils.plural(accumulator.totalViolationsCount, 'violation' ) %></b>
+          across
+          <%= accumulator.totalPageCount%> scanned
+          <%= utils.plural(accumulator.totalPageCount, 'URL' ) %>. View the scan results for more details.
+        </p>
+      </div>
+    </section>
+
+    <table
+      class="usa-table usa-table--striped usa-table--borderless usa-table--stacked usa-table--compact font-body-xs width-full" aria-label="Scan results list with links to detailed reports">
+      <thead>
+        <tr>
+          <th scope="col">Scanned URL</th>
+          <th scope="col" class="text-no-wrap width-10"><span class="usa-sr-only">Open URL in new window</a></th>
+          <th scope="col" class="text-no-wrap width-15 tablet:width-card-lg">WCAG violations</th>
+          <th scope="col" class="mobile-lg:text-right text-no-wrap width-10">Scan results</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% for(const [index, page] of accumulator.reportPages.entries()) { -%>
+        <tr>
+          <th scope="row">
+            <b class="usa-sr-only">Scanned URL: <br/></b>
+            <span class="font-mono-2xs narrow-mono break-anywhere" aria-label="dot <%= page.relativeURL %>,">
+              .<%= page.relativeURL %>
+            </span>
+          </th>
+          <td>
+            <a class="usa-link font-body-3xs text-no-wrap" target="_blank" aria-label="open scanned URL in a new window," title="open scanned URL in a new window"
+              href="<%= page.absoluteURL -%>">open URL <svg class="usa-icon text-ttop"
+                xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path fill="currentColor"
+                  d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+              </svg></a>
+          </td>
+          <td class="font-body-xs text-no-wrap">
+            <b class="usa-sr-only">Violations: <br /></b>
+            <% if (page.violationsCount < 1) {%>
+                None
+            <% } else if (page.indexPills.length < 1) {%>
+              <!-- there should always be pills if there are violations, but this is a backup -->
+              <%= page.violationsCount %>
+            <% } else { %>
+              <% for (const pill of page.indexPills) { %>
+                  <span class="usa-tag radius-pill bg-<%= utils.getMatchingSeverity(pill.name).color %> margin-right-1">
+                    <%= pill.count %>&nbsp;<%= pill.name %>
+                  </span>
+                  <span class="usa-sr-only"> <%= utils.plural(pill.count, 'violation' ) %>,</span>
+                <% } %>
+              <% if (page.moreCount > 0) {%>
+                <b>+ <%= page.moreCount %> more</b>
+              <% } %>
+            <% } %>
+          </td>
+          <td class="mobile-lg:text-right ">
+            <a class="usa-link text-bold font-body-xs text-no-wrap" href="./<%= page.path %>"
+              title="Full results for <%= page.absoluteURL %>" aria-label="Full results for dot <%= page.relativeURL %>,">View results</a>
+          </td>
+        </tr>
+        <% } %>
+        </tbody>
+    </table>
+
+
+    <%- include('includes/about', utils.rulesets ); %>
+
+  </main>
+</body>
+
+</html>

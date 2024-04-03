@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('includes/head', { title: 'WCAG scan results for ' + url + ' on ' + utils.timestampReadable(timestamp)}); %>
+
+<body>
+
+  <section class="usa-alert usa-alert--warning usa-alert--slim usa-alert--no-icon">
+    <div class="usa-alert__body ">
+      <p class="usa-alert__text">Please remember that <b>automated testing tools are limited and can only detect
+          <i>some</i>
+          accessibility
+          issues</b>.</p>
+    </div>
+  </section>
+  <main class="grid-container" id="#top">
+    <div class="grid-row">
+      <h1 class="font-heading-xl grid-col padding-right-2">WCAG scan results for <br /><span
+          class="font-code-lg text-normal text-primary-darker bg-accent-cool-lighter padding-x-05r narrow-mono"><%= url %></span>
+      </h1>
+      <span class="grid-col-auto inline-block margin-y-4">
+      <a id="pages-logo" href="https://cloud.gov/pages" target="_blank"
+        title="link to Pages homepage"><img src="https://cloud.gov/assets/images/pages/pages-logo-blue.svg"
+          class="width-15" alt="Pages logo" /></a>
+      </span>
+    </div>
+    <div class="grid-row border-top-1px padding-top-1">
+      <section class="tablet:grid-col-auto">
+        <nav class="sticky">
+          <table class="width-full tablet:width-auto usa-table usa-table--compact usa-table--borderless summary-table">
+            <caption class="usa-sr-only">
+              Summary of violations by severity and count
+            </caption>
+            <thead>
+              <tr class="height-5">
+                <th scope="col" role="columnheader">
+                  Severity
+                </th>
+                <th class="text-right" scope="col" role="columnheader">
+                  Count
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (violations.length && groupedViolations) { %>
+              <% for (const group in groupedViolations) { %>
+              <tr class="height-5">
+                <th scope="col">
+                  <!-- <span class="usa-tag radius-pill bg-<%= utils.getMatchingSeverity(group).color %>"><%= group %></span><br> -->
+                  <a href="#<%= group %>-violations" title="Jump to <%= group %> violations"
+                    class="usa-tag--big usa-tag text-uppercase usa-button radius-pill bg-<%= utils.getMatchingSeverity(group).color %>"><%= group %>
+                    <span class="usa-sr-only"> <%= utils.plural(group.length, 'violation' ) %>,</span>
+                  </a>
+                </th>
+                <td scope="col" class="font-mono-sm text-tabular text-right line-height-body-3">
+                  <%=groupedViolations[group].length -%>
+                </td>
+              </tr>
+              <% } %>
+              <% } %>
+              <tr class="height-5">
+                <th scope="col">
+                  <b>Total violations</b>
+                </th>
+                <td scope="col" class="font-mono-sm text-tabular text-right line-height-body-3">
+                  <b><%= violations.length -%></b>
+                </td>
+              </tr>
+              <tr class="height-5">
+                <th scope="col">
+                  Total passes
+                </th>
+                <td scope="col" class="font-mono-sm text-tabular text-right line-height-body-3">
+                  <%= passes.length -%>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="font-body-3xs">Scanned <%= utils.timestampReadable(timestamp) %></p>
+          <a href="./index.html" class="usa-link">&LeftAngleBracket; Back to scan results index</a>
+        </nav>
+      </section>
+
+      <div class="tablet:grid-col tablet:margin-left-4 ">
+        <h2 class="font-heading-xl margin-bottom-1 margin-top-3">
+          All WCAG violations <span class="font-body-xl text-secondary-vivid">(<%= violations.length -%>)</span>
+        </h2>
+        <% if (violations.length && groupedViolations) { %>
+
+        <% for (const group in groupedViolations) { %>
+        <% if (groupedViolations[group].length> 0 ) { %>
+        <a id="<%= group %>-violations"></a>
+        <div class="margin-y-2 padding-bottom-2">
+
+          <% groupedViolations[group].forEach( function(check, index) { %>
+          <a id="<%= group %>-violation-<%= index + 1 %>"></a>
+          <div class="bg-white padding-top-05 sticky">
+            <h3 class="font-heading-lg margin-y-105">
+              <%= check.help %>. <span
+                class="usa-tag bg-<%=check.color -%> radius-pill text-middle"><%=check.impact -%></span>
+            </h3>
+            <p class="font-body-md padding-bottom-2 border-bottom-1px">
+              <%= check.description -%> in <b> <%= check.nodes.length%>
+                <%= utils.plural(check.nodes.length, 'location' ) %></b>.
+              <a href="<%= check.helpUrl %>" target="_blank" class="usa-link font-body-sm" aria-label="Learn more about this rule">Learn
+                more <svg class="usa-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
+                  width="24">
+                  <path fill="currentColor"
+                    d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                </svg></a>
+            </p>
+          </div>
+          <ol class="margin-top-4">
+            <% for (const [nodeindex, node] of check.nodes.entries()) { %>
+            <li class="margin-bottom-4 margin-left-2 font-mono-lg">
+            <a id="<%= group %>-violation-<%= (index + 1) %>-element-<%= (nodeindex + 1) %>"></a>
+              <h4 class="font-body-lg margin-bottom-0">
+                Related element:
+                <code
+                  class="css text-normal narrow-mono font-mono-md line-height-mono-4 bg-accent-warm-lighter padding-05 break-anywhere"><%= node.target %></code>
+              </h4>
+              <h5 class="margin-bottom-0 font-body-sm text-semibold">Location in page:</h5>
+              <pre><code class="html text-wrap font-mono-xs line-height-mono-4 narrow-mono"><%= node.html %></code></pre>
+              <div>
+                <% if (node.failureSummary) { %>
+                <div class="usa-summary-box margin-top-3" role="region"
+                  aria-labelledby="<%= group %>-violation-<%= (index + 1) %>-element-<%= (nodeindex + 1) %>-fix-0">
+                  <div class="usa-summary-box__body">
+                    <% for (let [listindex, fixList] of node.failureSummary.split('\n\n').entries()) { -%>
+                    <% for (let [i=0, str] of fixList.split('\n').entries()) { -%>
+                    <% if (i==0) { -%>
+                    <h4 class="usa-summary-box__heading"
+                      id="<%= group %>-violation-<%= (index + 1) %>-element-<%= (nodeindex + 1) %>-fix-<%=listindex%>">
+                      <%= str -%>
+                    </h4>
+                    <ul class="usa-list margin-bottom-2">
+                      <% } else { -%><li><%= str -%></li><% } -%>
+                      <% } -%>
+                    </ul>
+                    <% } -%>
+                  </div>
+                </div>
+                <% } -%>
+              </div>
+            </li>
+            <% } %>
+          </ol>
+
+          <% }) %>
+
+        </div>
+
+        <% } %>
+        <% } %>
+        <% } else { %>
+        <section class="usa-alert usa-alert--success maxw-tablet margin-y-3">
+          <div class="usa-alert__body">
+            <p class="usa-alert__text">No WCAG violations found.</p>
+          </div>
+        </section>
+        <% } %>
+        <hr />
+
+        <h2 class="font-heading-xl">Passed checks <span
+            class="font-body-xl text-accent-cool-darker">(<%= passes.length -%>)</span></h2>
+        <details class="margin-y-3">
+          <summary>
+            This page passed <b> <%= passes.length %> </b> WCAG accessibility
+            <%= utils.plural(passes.length, 'check' ) %>.
+          </summary>
+
+          <table class="usa-table usa-table--striped usa-table--compact usa-table--borderless font-body-xs">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Locations</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% for(const check of passes) { %>
+              <tr>
+                <td>
+                  <%= check.help %>.
+                </td>
+                <td class="font-mono-sm text-tabular text-right">
+                  <%= check.nodes.length %>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </details>
+        <hr />
+        <p>URL scanned: <code class="narrow-mono"><%= url %></code></p>
+        <p>
+          Page <%= accumulator.currentPage %> of <%= accumulator.totalPageCount %> total pages scanned on
+          <%=  utils.timestampReadable(timestamp) %>
+        </p>
+        <p>This accessibility scan is a service of <a class="usa-link" target="_blank"
+            href="https://cloud.gov/pages/">cloud.gov
+            Pages</a>, powered by axe-core.
+        </p>
+      </div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-col">
+        <span
+          class="display-block back-to-top margin-bottom-2"><a href="#top" class="usa-link">&uparrow; Back to top</a></span>
+      </div>
+    </div>
+  </main>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.7.1/js/uswds.min.js" crossorigin="anonymous"
+    referrerpolicy="no-referrer" defer></script> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+    integrity="sha512-hasIneQUHlh06VNBe7f6ZcHmeRTLIaQWFd43YriJ0UND19bvYRauxthDg8E4eVNPm9bRUhr5JGeqH7FRFXQu5g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>hljs.highlightAll();</script>
+</body>
+
+</html>
