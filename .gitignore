@@ -154,3 +154,5 @@ Thumbs.db
 # System files
 $RECYCLE.BIN/
 $tf/
+
+__pycache__
