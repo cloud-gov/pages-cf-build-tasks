@@ -1,11 +1,11 @@
 import os
 import re
 import shutil
-import subprocess
 
 from scraper.spider import process, A11ySpider
 
 from lib.task import BaseBuildTask
+from lib.utils import run
 
 
 class BuildTask(BaseBuildTask):
@@ -37,15 +37,15 @@ class BuildTask(BaseBuildTask):
 
         # scan
         for url in data:
-            subprocess.run([
+            run([
                 f'axe {url}' +
-                ' --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage"' +
+                ' --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage"' +  # noqa: E501
                 ' --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa' +
                 f' --dir {results_dir}'
             ], timeout=900, shell=True)
 
         # report
-        output = subprocess.run([
+        output = run([
             'node',
             'build-task/reporter/generate-report.js',
             '--inputDir',
@@ -56,7 +56,7 @@ class BuildTask(BaseBuildTask):
             templates_dir,
             '--target',
             target
-        ], capture_output=True, text=True)
+        ], capture_output=True)
 
         # regex test on output for count
         summary_regex = r'Issue Count: (\d+)'
