@@ -32,6 +32,10 @@ jobs:
         trigger: true
         passed: [set-pipeline]
       - get: cf-image
+      - get: python-image
+      - task: common-test
+        file: src/ci/partials/common-test.yml
+        image: python-image
       - task: ls-tasks
         file: src/ci/partials/ls-tasks.yml
         image: cf-image
@@ -136,6 +140,15 @@ resources:
       aws_access_key_id: ((ecr-aws-key))
       aws_secret_access_key: ((ecr-aws-secret))
       repository: general-task
+      aws_region: us-gov-west-1
+      tag: latest
+
+  - name: python-image
+    type: registry-image
+    source:
+      aws_access_key_id: ((ecr-aws-key))
+      aws_secret_access_key: ((ecr-aws-secret))
+      repository: pages-python-v3.11
       aws_region: us-gov-west-1
       tag: latest
 

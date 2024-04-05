@@ -25,12 +25,54 @@ jobs:
         instance_vars:
           deploy-env: ((deploy-env))
 
+  - name: test
+    plan:
+      - get: src
+        resource: pr
+        trigger: true
+        passed: [set-pipeline]
+      - put: src
+        resource: pr
+        params:
+          path: src
+          status: pending
+          base_context: concourse
+          context: test-cf-build-tasks
+      - get: python-image
+      - task: common-test
+        file: src/ci/partials/common-test.yml
+        image: python-image
+        on_success:
+          put: src
+          resource: pr
+          params:
+            path: src
+            status: success
+            base_context: concourse
+            context: test-cf-build-tasks
+        on_failure:
+          put: src
+          resource: pr
+          params:
+            path: src
+            status: failure
+            base_context: concourse
+            context: test-cf-build-tasks
+
+
   - name: deploy-((deploy-env))
     plan:
       - get: src
         resource: pr
         trigger: true
         passed: [set-pipeline]
+      - put: src
+        resource: pr
+        params:
+          path: src
+          status: pending
+          base_context: concourse
+          context: deploy-cf-build-tasks
       - get: cf-image
       - task: ls-tasks
         file: src/ci/partials/ls-tasks.yml
@@ -101,6 +143,22 @@ jobs:
               channel: ((slack-channel))
               username: ((slack-username))
               icon_url: ((slack-icon-url))
+        on_success:
+          put: src
+          resource: pr
+          params:
+            path: src
+            status: success
+            base_context: concourse
+            context: deploy-cf-build-tasks
+        on_failure:
+          put: src
+          resource: pr
+          params:
+            path: src
+            status: failure
+            base_context: concourse
+            context: deploy-cf-build-tasks
 
 
 ############################
@@ -138,6 +196,15 @@ resources:
       aws_access_key_id: ((ecr-aws-key))
       aws_secret_access_key: ((ecr-aws-secret))
       repository: general-task
+      aws_region: us-gov-west-1
+      tag: latest
+
+  - name: python-image
+    type: registry-image
+    source:
+      aws_access_key_id: ((ecr-aws-key))
+      aws_secret_access_key: ((ecr-aws-secret))
+      repository: pages-python-v3.11
       aws_region: us-gov-west-1
       tag: latest
 
