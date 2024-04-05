@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 import subprocess
 
@@ -44,7 +45,7 @@ class BuildTask(BaseBuildTask):
             ], timeout=900, shell=True)
 
         # report
-        subprocess.run([
+        output = subprocess.run([
             'node',
             'build-task/reporter/generate-report.js',
             '--inputDir',
@@ -55,9 +56,22 @@ class BuildTask(BaseBuildTask):
             templates_dir,
             '--target',
             target
-        ])
+        ], capture_output=True, text=True)
+
+        # regex test on output for count
+        summary_regex = r'Issue Count: (\d+)'
+        match = re.search(summary_regex, output.stdout)
+        try:
+            count = int(match.groups()[0])
+        except Exception:
+            count = 0
 
         # bundle
         filename = f'/accessibility-scan-for-{owner}-{repository}-{buildid}'  # noqa: E501
         shutil.make_archive(filename, 'zip', reports_dir)
-        return f'{filename}.zip'
+
+        return dict(
+            artifact=f'{filename}.zip',
+            message=None,
+            count=count,
+        )

@@ -77,7 +77,7 @@ for await (const file of g) {
   let contents = JSON.parse(await fs.readFile(file, "utf8"));
   let thisPage = prepareResults(contents[0]);
   const fileName = path.parse(file).name
-  
+
   let groupedViolationsCounts = [];
 
   Object.keys(thisPage.groupedViolations).forEach(( name ) => {
@@ -114,6 +114,10 @@ for await (const file of g) {
     accumulator.reportPages = accumulator.reportPages.sort((a, b) => b.violationsCount - a.violationsCount)
     console.log(`Generating report index for ${accumulator.totalViolationsCount} accessibility violations found across ${totalLength} URLs.`)
     await renderFromTemplate(null, accumulator, '/index', outputPath, templatePath, "reportIndex.ejs").then(console.log(`Report generation complete; open ${outputPath}/index.html to review.`))
+
+    // write summary count to stdout to be picked up by subprocess.run
+    console.log(`Issue Count: ${accumulator.totalViolationsCount}`)
+
   }
 }
 
