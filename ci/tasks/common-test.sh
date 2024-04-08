@@ -4,4 +4,4 @@ set -e
 
 pip install -e .
 pip install pytest
-pytest
+pytest test/common
