@@ -4,9 +4,6 @@ applications:
     no-route: true
     health-check-type: process
     instances: 0
-    services:
-      - federalist-((env))-rds
-      - federalist-((env))-uev-key
     metadata:
       labels:
         type: build-task
