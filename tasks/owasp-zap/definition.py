@@ -7,16 +7,25 @@ from lib.utils import run
 class BuildTask(BaseBuildTask):
     def __init__(self):
         super().__init__(
-            extra_args=[['-t', '--target']]
+            extra_args=[
+                ['-t', '--target'],
+                ['-b', '--buildid'],
+                ['-o', '--owner'],
+                ['-r', '--repository']]
         )
 
     def handler(self):
         """scan"""
-        filename = 'report.html'
+        target = self.args['target']
+        buildid = self.args['buildid']
+        owner = self.args['owner']
+        repository = self.args['repository']
+
+        filename = f'zap-scan-for-{owner}-{repository}-{buildid}.html'
 
         output = run([
             'zap-baseline.py',
-            '-t', self.args['target'],
+            '-t', target,
             '-r', filename,
             '-I'
         ], timeout=900, capture_output=True)
