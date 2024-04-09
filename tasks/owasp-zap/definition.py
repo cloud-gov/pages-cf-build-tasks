@@ -17,7 +17,8 @@ class BuildTask(BaseBuildTask):
         output = run([
             'zap-baseline.py',
             '-t', self.args['target'],
-            '-r', filename
+            '-r', filename,
+            '-I'
         ], timeout=900, capture_output=True)
 
         # regex test on output for count
