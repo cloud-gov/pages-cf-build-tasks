@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "ejslint templates/*",
     "build": "node generate-report.js",
-    "watch": "ejslint templates/* && node --watch-path=./templates --watch-path=./generate-report.js  generate-report.js --inputDir results --outputDir reports --templateDir templates --target https://example.gov --buildId 123456"
+    "watch": "ejslint templates/* && node --watch-path=./templates --watch-path=./generate-report.js generate-report.js --input report.json --output report.html --target https://example.gov --buildId 123456"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -22,6 +22,7 @@
     "core-js": "^3.36.1",
     "ejs": "^3.1.8",
     "glob": "^10.3.10",
+    "marked": "^12.0.1",
     "minimist": "^1.2.8"
   }
 }
