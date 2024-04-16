@@ -103,13 +103,23 @@ let accumulator = {
 console.log(`Generating report pages at ${outputPath}/`)
 
 for await (const file of g) {
-  let contents = JSON.parse(await fs.readFile(file, "utf8"));
+  let contents = [];
+  try {
+    contents = JSON.parse(await fs.readFile(file, "utf8"));
+  } catch(error) {
+    console.error("Could not parse results file", file, error);
+    contents = [{
+      error: true,
+      url: null
+    }]
+  }
+
   if (contents[0]?.error) {
     accumulator.reportPages.push({
       failed: true,
       path: null,
-      absoluteURL: contents[0].url,
-      relativeURL: contents[0].url.split(accumulator.baseurl)[1],
+      absoluteURL: contents[0].url?.toString() || null,
+      relativeURL: contents[0].url?.split(accumulator.baseurl)[1].toString() || null,
       indexPills: [],
       moreCount: null
     });

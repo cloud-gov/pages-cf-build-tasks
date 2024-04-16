@@ -156,3 +156,6 @@ $RECYCLE.BIN/
 $tf/
 
 __pycache__
+tasks/a11y/reporter/results/
+tasks/a11y/reporter/reports/
+tasks/owasp-zap/reporter/report.*

@@ -33,16 +33,6 @@ class BuildTask(BaseBuildTask):
             '-I'
         ], timeout=900, capture_output=True)
 
-        # regex test on output for count
-        summary_regex = r'FAIL-NEW:\s+(\d+)\s+FAIL-INPROG:\s+(\d+)\s+WARN-NEW:\s+(\d+)\s+WARN-INPROG:\s+(\d+)\s+INFO:\s+(\d+)\s+IGNORE:\s+(\d+)\s+PASS:\s+(\d+)'  # noqa: E501
-        match = re.search(summary_regex, output.stdout)
-
-        # sum everything except pass
-        try:
-            count = sum([int(n) for n in match.groups()[0:6]])
-        except Exception:
-            count = 0
-
         output = run([
             'node',
             'build-task/reporter/generate-report.js',
@@ -58,6 +48,14 @@ class BuildTask(BaseBuildTask):
             buildid
 
         ], capture_output=True)
+
+        # regex test on output for count
+        summary_regex = r'Issue Count: (\d+)'
+        match = re.search(summary_regex, output.stdout)
+        try:
+            count = int(match.groups()[0])
+        except Exception:
+            count = 0
 
         return dict(
             artifact=filename,
