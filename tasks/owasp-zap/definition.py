@@ -21,12 +21,15 @@ class BuildTask(BaseBuildTask):
         owner = self.args['owner']
         repository = self.args['repository']
 
-        filename = f'zap-scan-for-{owner}-{repository}-{buildid}.html'
+        tmp_report = 'report.json'
+        templates_dir = '/build-task/reporter/templates'
+
+        filename = f'/zap-scan-for-{owner}-{repository}-{buildid}.html'
 
         output = run([
             'zap-baseline.py',
             '-t', target,
-            '-r', filename,
+            '-J', tmp_report,
             '-I'
         ], timeout=900, capture_output=True)
 
@@ -40,8 +43,24 @@ class BuildTask(BaseBuildTask):
         except Exception:
             count = 0
 
+        output = run([
+            'node',
+            'build-task/reporter/generate-report.js',
+            '--input',
+            f'/zap/wrk/{tmp_report}',
+            '--output',
+            filename,
+            '--templateDir',
+            templates_dir,
+            '--target',
+            target,
+            '--buildId',
+            buildid
+
+        ], capture_output=True)
+
         return dict(
-            artifact=f'/zap/wrk/{filename}',
+            artifact=filename,
             message=None,
             count=count,
         )

@@ -1,3 +1,4 @@
+import json
 import os
 import re
 import shutil
@@ -36,13 +37,17 @@ class BuildTask(BaseBuildTask):
         process.start()
 
         # scan
-        for url in data:
-            run([
-                f'axe {url}' +
-                ' --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage"' +  # noqa: E501
-                ' --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa' +
-                f' --dir {results_dir}'
-            ], timeout=900, shell=True)
+        for idx, url in enumerate(data):
+            try:
+                run([
+                    f'axe {url}' +
+                    ' --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage"' +  # noqa: E501
+                    ' --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa' +
+                    f' --dir {results_dir}'
+                ], timeout=900, shell=True)
+            except Exception:
+                with open(os.path.join(results_dir, str(idx)), 'w') as f:
+                    json.dump(dict(url=url, error=True), f)
 
         # report
         output = run([
@@ -55,7 +60,9 @@ class BuildTask(BaseBuildTask):
             '--templateDir',
             templates_dir,
             '--target',
-            target
+            target,
+            '--buildId',
+            buildid
         ], capture_output=True)
 
         # regex test on output for count
