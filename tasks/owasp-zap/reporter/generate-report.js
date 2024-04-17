@@ -47,11 +47,13 @@ function groupAlerts(alerts) {
 
 function prepareResults(results) {
   let cleanedAlerts = cleanAlerts(results.site[0].alerts);
+  let groupedAlerts = groupAlerts(cleanedAlerts);
   return {
     site: {
       ...results.site[0],
       alerts: cleanedAlerts,
-      groupedAlerts: groupAlerts(cleanedAlerts)
+      groupedAlerts: groupedAlerts,
+      issueCount: [...cleanedAlerts.filter(alert => alert.riskcode > 0)].length
     },
     generated: results['@generated']
   };
@@ -71,4 +73,8 @@ let contents = JSON.parse(await fs.readFile(inputFile, "utf8"));
 let results = prepareResults(contents);
 
 await renderFromTemplate(results, output, templateDir, "report.ejs", buildId).then(console.log(`Report generation complete; open ${output} to review.`))
+
+// write summary count to stdout to be picked up by subprocess.run
+console.log(`Issue Count: ${results.site.issueCount}`)
+
 

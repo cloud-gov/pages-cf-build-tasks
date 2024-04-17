@@ -17,9 +17,9 @@
       </span>
     </div>
     <div class="grid-row border-top-1px padding-top-1">
-      <section class="tablet:grid-col-auto">
+      <section class="desktop:grid-col-auto">
         <nav class="sticky">
-          <table class="width-full tablet:width-auto usa-table usa-table--compact usa-table--borderless summary-table">
+          <table class="width-full desktop:width-auto usa-table usa-table--compact usa-table--borderless summary-table">
             <caption class="usa-sr-only">
               Summary by risk level
             </caption>
@@ -40,7 +40,7 @@
                       <tr class="height-5">
                         <th scope="col">
                       
-                          <a href="#<%= name  %>-alerts"
+                          <a href="#<%= name  %>-findings"
                             title="Jump to <%= name  %> alerts"
                             class="usa-tag--big usa-tag text-uppercase usa-button radius-pill bg-<%= color %>"><%= name %>
                             <span class="usa-sr-only"> <%= utils.plural(site.groupedAlerts[riskCode].length, 'alert' ) %>,</span>
@@ -55,10 +55,18 @@
               <% } %>
               <tr class="height-5">
                 <th scope="col">
-                  <b>Total findings</b>
+                  <b>All warnings</b>
                 </th>
                 <td scope="col" class="font-mono-sm text-tabular text-right line-height-body-3">
-                  <b><%= site.alerts.length -%></b>
+                  <b><%= site.issueCount -%></b>
+                </td>
+              </tr>
+              <tr class="height-5">
+                <th scope="col">
+                  Total findings
+                </th>
+                <td scope="col" class="font-mono-sm text-tabular text-right line-height-body-3">
+                  <%= site.alerts.length -%>
                 </td>
               </tr>
             </tbody>
@@ -66,7 +74,7 @@
           <p class="font-body-3xs line-height-body-3 maxw-card-lg">Scanned <%= utils.timestampReadable(generated) %> during Pages Build ID: <span class="font-mono-3xs">#<%= buildId %></span></p>
         </nav>
       </section>
-      <div class="tablet:grid-col tablet:margin-left-4 ">
+      <div class="desktop:grid-col desktop:margin-left-4 ">
         <h2 class="font-heading-xl margin-bottom-1 margin-top-3">
           Findings summary
         </h2>
@@ -76,42 +84,48 @@
           aria-label="">
           <thead>
             <tr>
-                  <th scope="col">Finding</th>
-                  <th scope="col" class="text-no-wrap width-15 tablet:width-card-lg">Risk level</th>
-                  <th scope="col" class="mobile-lg:text-right text-no-wrap width-10">Locations</th>
-                </tr>
-              </thead>
-        
-              <tbody>
-                <% for(const [index, alert] of site.alerts.entries()) { -%>
-                <tr>
-                  <th scope="row">
-                    <b class="usa-sr-only">Finding: <br/></b>
-                    <a class="usa-link" href="#alert-<%= alert.alertRef %>"><%= alert.name %></a>
-                  </th>
-                
-                  <td class="font-body-xs text-no-wrap">
-                    <b class="usa-sr-only">Risk level: <br /></b>
-                    <span class="usa-tag radius-pill bg-<%= utils.getSevByRiskCode(alert.riskcode).color %>">
-                      <%= utils.getSevByRiskCode(alert.riskcode).name %>
-                    </span>
-                  </td>
-                  <td class="text-right ">
-                  <span class="usa-sr-only"><%= utils.plural(alert.instances.length, 'location' ) %>:</span>
-                    <%= alert.instances.length %>
-                  </td>
-                </tr>
-              <% } %>
-            </tbody>
+                <th scope="col">Finding</th>
+                <th scope="col" class="text-no-wrap width-15 desktop:width-card-lg">Risk level</th>
+                <th scope="col" class="mobile-lg:text-right text-no-wrap width-10">Locations</th>
+              </tr>
+            </thead>
+      
+            <tbody>
+              <% for(const [index, alert] of site.alerts.entries()) { -%>
+              <tr>
+                <th data-label="Finding" scope="row">
+                  <b class="usa-sr-only">Finding: <br/></b>
+                  <a class="usa-link" href="#alert-<%= alert.alertRef %>"><%= alert.name %></a>
+                </th>
+              
+                <td data-label="Risk level" class="font-body-xs text-no-wrap">
+                  <b class="usa-sr-only">Risk level: <br /></b>
+                  <span class="usa-tag radius-pill bg-<%= utils.getSevByRiskCode(alert.riskcode).color %>">
+                    <%= utils.getSevByRiskCode(alert.riskcode).name %>
+                  </span>
+                </td>
+                <td data-label="Locations count" class="text-right">
+                <span class="usa-sr-only"><%= utils.plural(alert.instances.length, 'location' ) %>:</span>
+                  <%= alert.instances.length %>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
         </table>
         <h2 class="font-heading-xl margin-bottom-1 margin-top-3">
-          All findings <span class="font-body-xl text-secondary-vivid">(<%= site.alerts.length -%>)</span>
+          All warnings <span class="font-body-xl text-secondary-vivid">(<%= site.issueCount -%>)</span>
         </h2>
 
         <% if (site.alerts.length && site.groupedAlerts) { %>
           <% utils.severity.forEach(({riskCode, name, color}) => { %>
+            <a id="<%= name %>-findings"></a>
             <% if (site.groupedAlerts[riskCode] && site.groupedAlerts[riskCode].length> 0 ) { %>
-              <a id="<%= name %>-alerts"></a>
+            <% if (riskCode < 1 ) { %> 
+            <h2 class="font-heading-xl margin-bottom-1 margin-top-3">
+              <%= name -%> findings <span class="font-body-xl text-info-darker">(<%= site.groupedAlerts[riskCode].length -%>)</span>
+            </h2>
+            <% } %>
+
               <div class="margin-y-2 padding-bottom-2">
                 <% site.groupedAlerts[riskCode].forEach( function(alert, alertIndex) { %>
                   <% if (!!alert?.alertRef) { %>
