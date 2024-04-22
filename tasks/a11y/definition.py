@@ -2,6 +2,7 @@ import json
 import os
 import re
 import shutil
+import logging
 
 from scraper.spider import process, A11ySpider
 
@@ -36,18 +37,29 @@ class BuildTask(BaseBuildTask):
         process.crawl(A11ySpider, target=target, data=data)
         process.start()
 
+        # the crawler resets the log level
+        self.logger.setLevel(
+            logging.getLevelName(
+                os.getenv('LOGLEVEL', 'debug').upper()
+            )
+        )
+        self.logger.info(f'{len(data)} urls found')
+
         # scan
         for idx, url in enumerate(data):
             try:
+                # capture the output to avoid printing individual page results
+                self.logger.info(f'axe scan on url: {url}')
                 run([
                     f'axe {url}' +
                     ' --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage"' +  # noqa: E501
                     ' --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa' +
                     f' --dir {results_dir}'
-                ], timeout=900, shell=True)
+                ], timeout=900, shell=True, capture_output=True)
             except Exception:
+                self.logger.error(f'error scanning url: {url}')
                 with open(os.path.join(results_dir, str(idx)), 'w') as f:
-                    json.dump(dict(url=url, error=True), f)
+                    json.dump([dict(url=url, error=True)], f)
 
         # report
         output = run([
