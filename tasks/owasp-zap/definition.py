@@ -30,8 +30,10 @@ class BuildTask(BaseBuildTask):
             'zap-baseline.py',
             '-t', target,
             '-J', tmp_report,
-            '-I'
-        ], timeout=900, capture_output=True)
+            '-I',
+            '-d',
+            '-T', '5'  # https://www.zaproxy.org/docs/docker/baseline-scan/
+        ], timeout=1800, capture_output=True)
 
         output = run([
             'node',
