@@ -32,6 +32,7 @@ jobs:
         trigger: true
         passed: [set-pipeline]
       - get: cf-image
+      - get: oci-build-task
       - get: python-image
       - task: common-test
         file: src/ci/partials/common-test.yml
@@ -48,24 +49,13 @@ jobs:
         do:
         - task: build
           privileged: true
-          config:
-            platform: linux
-            image_resource:
-              type: registry-image
-              source:
-                repository: concourse/oci-build-task
-            inputs:
-            - name: src
-              path: .
-            outputs:
-            - name: image
-            run:
-              path: build
-            params:
-              BUILD_ARG_TASK_FOLDER: tasks/((.:build-task))
-              BUILD_ARGS_FILE: tasks/((.:build-task))/.env
-              BUILDKIT_SECRETTEXT_UA_TOKEN: ((ua-token))
-              DOCKERFILE: Dockerfile
+          image: oci-build-task
+          file: src/ci/partials/build.yml
+          params:
+            BUILD_ARG_TASK_FOLDER: tasks/((.:build-task))
+            BUILD_ARGS_FILE: tasks/((.:build-task))/.env
+            BUILDKIT_SECRETTEXT_UA_TOKEN: ((ua-token))
+            DOCKERFILE: Dockerfile
         - task: tag-list
           file: src/ci/partials/tag-list.yml
           image: cf-image
@@ -150,6 +140,15 @@ resources:
       aws_access_key_id: ((ecr-aws-key))
       aws_secret_access_key: ((ecr-aws-secret))
       repository: pages-python-v3.11
+      aws_region: us-gov-west-1
+      tag: latest
+
+  - name: oci-build-task
+    type: registry-image
+    source:
+      aws_access_key_id: ((ecr-aws-key))
+      aws_secret_access_key: ((ecr-aws-secret))
+      repository: oci-build-task
       aws_region: us-gov-west-1
       tag: latest
 
