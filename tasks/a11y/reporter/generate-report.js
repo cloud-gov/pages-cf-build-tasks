@@ -1,20 +1,74 @@
 #!/usr/bin/node
 import * as ejs from 'ejs';
 import { Glob } from 'glob'
-import fs from 'fs/promises';
+import fs from 'fs';
 import groupBy from 'core-js/actual/object/group-by.js';
 import * as utils from './templates/utils.js';
 import minimist from 'minimist';
 import path from 'path';
 
+function violationEnhancer(violation, config, url) {
+  const rule = config.rules.find(rule => rule.id === violation.id)
+  // if (rule.match) { ignore certain nodes }
+  // else { ignore the whole violation }
+  // also { if all nodes ignored, ignore the whole violation }
+  let ignore = false;
+  let ignoreSource = '';
+  if (rule) {
+    if (rule.match?.length) {
+      violation.nodes.forEach(node => {
+        // ignore nodes if html matches rule.match
+        if (rule.match.some(match => node.html.includes(match))) {
+          node.ignore = true;
+          node.ignoreSource = rule.source;
+        }
+      })
+      // ignore the violation for a url match
+      if (rule.match.some(match => url.includes(match))) {
+        ignore = true;
+        ignoreSource = rule.source;
+      }
+
+    } else {
+      // with no match property, we ignore the whole violation
+      ignore = true;
+      ignoreSource = rule.source;
+    }
+
+    // if all nodes are ignored, the violation is ignored
+    if (violation.nodes.every(node => node.ignore)) {
+      ignore = true;
+      ignoreSource = rule.source;
+    }
+  }
+
+  const { svg: icon, color, order } = utils.getMatchingSeverity(violation.impact);
+
+  return {
+    ...violation,
+    icon,
+    color,
+    order,
+    impact: violation.impact ?? 'other',
+    description: violation.description.replace(/\bEnsures\b/g, 'Ensure'),
+    total: violation.nodes.length,
+    helpUrl: violation.helpUrl,
+    ignore,
+    ignoreSource
+  }
+}
+
+
 async function renderFromTemplate(renderData, accumulator, filePath, outputDir, templateDir, templateName, buildId) {
 
   const templatePath = path.join(templateDir, templateName);
-  await fs.mkdir(outputDir, { recursive: true })
+  fs.mkdir(outputDir, (err) => {
+    console.error(err)
+  })
   const outputPath = path.join(outputDir, `${filePath}.html`);
-  const template = await fs.readFile(templatePath, 'utf8');
-  const html = await ejs.render(template, { ...renderData, accumulator, utils, buildId: buildId }, { filename: `${templateDir}/${templateName}` })
-  fs.writeFile(outputPath, html, 'utf8');
+  const template = fs.readFileSync(templatePath, 'utf8');
+  const html = await ejs.render(template, { ...renderData, accumulator, utils, buildId }, { filename: `${templateDir}/${templateName}` })
+  fs.writeFileSync(outputPath, html, 'utf8');
 }
 
 function groupViolations(allViolations) {
@@ -30,29 +84,15 @@ function groupViolations(allViolations) {
 
 function sortByNodesLength(a, b) { return b.nodes.length - a.nodes.length }
 
-function enhanceViolations(allViolations) {
-  return allViolations.map((check) => ({
-    ...check,
-    icon: utils.getMatchingSeverity(check.impact).svg,
-    color: utils.getMatchingSeverity(check.impact).color,
-    impact: check.impact ?? 'other',
-    description: check.description.replace(/\bEnsures\b/g, 'Ensure'),
-  })).sort(sortByNodesLength)
+function enhanceViolations(allViolations, config, url) {
+  return allViolations.map(v => violationEnhancer(v, config, url)).sort(sortByNodesLength)
 }
-function shallowViolations(allViolations) {
-  return allViolations.map((check) => ({
-    id: check.id,
-    color: utils.getMatchingSeverity(check.impact).color,
-    order: utils.getMatchingSeverity(check.impact).order,
-    impact: check.impact ?? 'other',
-    description: check.description.replace(/\bEnsures\b/g, 'Ensure'),
-    total: check.nodes.length,
-    helpUrl: check.helpUrl,
-  }))
+function shallowViolations(allViolations, config, url) {
+  return allViolations.map(v => violationEnhancer(v, config, url));
 }
 
 function prepareResults(results) {
-  const enhancedViolations = enhanceViolations([...results.violations]);
+  const enhancedViolations = enhanceViolations([...results.violations], config, results.url);
   let groupedViolations = groupViolations(enhancedViolations);
   return {
     renderData: {
@@ -64,7 +104,7 @@ function prepareResults(results) {
       groupedViolations: groupedViolations,
       violationsCount: results.violations.length,
     },
-    shallowRulesViolated: shallowViolations([...results.violations])
+    shallowRulesViolated: shallowViolations([...results.violations], config, results.url)
   };
 }
 
@@ -86,6 +126,9 @@ let inputPath = argv.inputDir;
 let outputPath = argv.outputDir;
 let templatePath = argv.templateDir;
 let buildId = argv.buildId;
+let configFile = argv.config;
+
+const config = JSON.parse(fs.readFileSync(configFile, "utf8"))
 
 const g = new Glob(`${inputPath}/*`, {});
 const totalLength = g.walkSync().length;
@@ -99,13 +142,12 @@ let accumulator = {
   reportPages: [],
 }
 
-
 console.log(`Generating report pages at ${outputPath}/`)
 
 for await (const file of g) {
   let contents = [];
   try {
-    contents = JSON.parse(await fs.readFile(file, "utf8"));
+    contents = JSON.parse(fs.readFileSync(file, "utf8"));
   } catch(error) {
     console.error("Could not parse results file", file, error);
     contents = [{
@@ -143,8 +185,6 @@ for await (const file of g) {
 
     await renderFromTemplate(thisPage.renderData, accumulator, fileName, outputPath, templatePath, "reportPage.ejs", buildId).then(() => {
 
-
-
       accumulator.reportPages.push({
         path: `${fileName}.html`,
         absoluteURL: thisPage.renderData.url,
@@ -160,7 +200,7 @@ for await (const file of g) {
       accumulator.totalViolationsCount += thisPage.renderData.violationsCount;
 
       thisPage.shallowRulesViolated.forEach((rule) => {
-        accumulator.violatedRules.push(rule)
+        if (!rule.ignore) accumulator.violatedRules.push(rule)
       });
 
       // note that url is a sort of user-provided value; it's using whatever the scanned URL was, not the json results filename.

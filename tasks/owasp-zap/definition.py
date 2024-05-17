@@ -11,7 +11,8 @@ class BuildTask(BaseBuildTask):
                 ['-t', '--target'],
                 ['-b', '--buildid'],
                 ['-o', '--owner'],
-                ['-r', '--repository']]
+                ['-r', '--repository'],
+                ['-c', '--config']],
         )
 
     def handler(self):
@@ -20,6 +21,10 @@ class BuildTask(BaseBuildTask):
         buildid = self.args['buildid']
         owner = self.args['owner']
         repository = self.args['repository']
+        config = self.args['config']
+        config_file = '/build-task/reporter/config.json'
+        with open(config_file, 'w') as cf:
+            cf.write(config)
 
         tmp_report = 'report.json'
         templates_dir = '/build-task/reporter/templates'
@@ -47,8 +52,9 @@ class BuildTask(BaseBuildTask):
             '--target',
             target,
             '--buildId',
-            buildid
-
+            buildid,
+            '--config',
+            config_file
         ], capture_output=True)
 
         # regex test on output for count
