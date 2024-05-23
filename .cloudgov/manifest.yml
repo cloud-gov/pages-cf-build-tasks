@@ -8,5 +8,8 @@ applications:
       labels:
         type: build-task
         name: owasp-zap
+    services:
+      - pages-((env))-encryption
     env:
       LOGLEVEL: ((loglevel))
+      DEPLOY_ENV: ((env))

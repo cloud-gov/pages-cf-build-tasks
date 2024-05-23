@@ -3,5 +3,5 @@
 set -e
 
 pip install -e .
-pip install pytest
+pip install pytest cryptography
 pytest

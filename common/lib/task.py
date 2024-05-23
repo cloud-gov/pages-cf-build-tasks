@@ -4,11 +4,12 @@ import json
 import os
 import requests
 import logging
+from lib.utils import decrypt, decrypt_dict_values
 
 
 class BaseBuildTask:
     def __init__(self, extra_args):
-        logging.basicConfig(level=os.environ.get('LOGLEVEL', 'INFO').upper())
+        logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper())
         self.logger = logging.getLogger(name=type(self).__name__)
         self.parser = argparse.ArgumentParser()
 
@@ -25,7 +26,8 @@ class BaseBuildTask:
         args = self.parser.parse_args()
 
         # default argument handling
-        params = json.loads(args.params)
+        encrypted_params = json.loads(args.params)
+        params = decrypt_dict_values(encrypted_params, self.encryption_key)
 
         self.status_callback = params["STATUS_CALLBACK"]
         self.task_id = params["TASK_ID"]
@@ -35,7 +37,7 @@ class BaseBuildTask:
         self.bucket = params["BUCKET"]
 
         self.s3_client = boto3.client(
-            service_name='s3',
+            service_name="s3",
             aws_access_key_id=self.aws_access_key_id,
             aws_secret_access_key=self.aws_secret_access_key,
             region_name=self.aws_default_region
@@ -45,7 +47,21 @@ class BaseBuildTask:
         # custom argument handling
         for k, v in args.__dict__.items():
             if k != 'params':
-                self.args[k] = v
+                self.args[k] = decrypt(v, self.encryption_key)
+
+    def set_encryption_key():
+        deploy_env = os.getenv("DEPLOY_ENV")
+        vcap_services = json.loads(os.getenv("VCAP_SERVICES", "{}"))
+
+        encryption_ups = next(
+            ups
+            for ups in vcap_services["user-provided"]
+            if ups["name"] == f"pages-{deploy_env}-encryption"
+        )
+
+        encryption_key = encryption_ups["credentials"]["key"]
+
+        self.encryption_key = encryption_key
 
     def status_start(self):
         """callback"""
