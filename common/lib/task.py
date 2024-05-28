@@ -49,7 +49,7 @@ class BaseBuildTask:
             if k != 'params':
                 self.args[k] = decrypt(v, self.encryption_key)
 
-    def set_encryption_key():
+    def set_encryption_key(self):
         deploy_env = os.getenv("DEPLOY_ENV")
         vcap_services = json.loads(os.getenv("VCAP_SERVICES", "{}"))
 
