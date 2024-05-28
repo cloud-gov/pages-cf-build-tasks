@@ -8,7 +8,7 @@ class BuildTask(BaseBuildTask):
         super().__init__(
             extra_args=[['-t', '--target']]
         )
-    
+
     def handler():
         """write a temporary file"""
         # access arg with self.args["target"]

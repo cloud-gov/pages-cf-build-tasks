@@ -1,7 +1,7 @@
 ARG BASE_IMAGE
 # use custom build image
 FROM $BASE_IMAGE
- 
+
 # cf task will always run here (and reset other images)
 WORKDIR /
 USER root
@@ -9,7 +9,7 @@ USER root
 # add necessary python dependencies
 # TODO: how do we know we have python?
 # TODO: could make this a requirement of the build script/image
-RUN pip3 install --no-cache-dir --upgrade boto3 requests argparse
+RUN pip3 install --no-cache-dir --upgrade boto3 requests argparse cryptography
 
 # set any other env variables
 RUN mkdir build-task
