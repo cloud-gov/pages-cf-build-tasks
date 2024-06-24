@@ -1,27 +1,25 @@
 ---
-############################
-#  SHARED
+#@ load("funcs.lib.yml", "slack_hook")
+#@ load("@ytt:data", "data")
+#@ load("@ytt:template", "template")
 
-env-cf: &env-cf
-  CF_API: https://api.fr.cloud.gov
-  CF_USERNAME: ((build-tasks-((deploy-env))-cf-username))
-  CF_PASSWORD: ((build-tasks-((deploy-env))-cf-password))
-  CF_ORG: gsa-18f-federalist
-  CF_SPACE: build-tasks-((deploy-env))
-
-############################
-#  JOBS
+#!  JOBS
 
 jobs:
-
   - name: set-pipeline
-    serial: true
     plan:
       - get: src
         resource: pr
         trigger: true
+      - get: pipeline-tasks
+      - get: general-task
+      - task: init
+        image: general-task
+        file: pipeline-tasks/tasks/init.yml
+        params:
+          PIPELINE_YML: src/ci/pipeline-dev.yml
       - set_pipeline: cf-build-tasks
-        file: src/ci/pipeline-dev.yml
+        file: compiled/set-pipeline.yml
         instance_vars:
           deploy-env: ((deploy-env))
 
@@ -38,10 +36,10 @@ jobs:
           status: pending
           base_context: concourse
           context: test-cf-build-tasks
-      - get: python-image
+      - get: python
       - task: common-test
         file: src/ci/partials/common-test.yml
-        image: python-image
+        image: python
         on_success:
           put: src
           resource: pr
@@ -58,7 +56,6 @@ jobs:
             status: failure
             base_context: concourse
             context: test-cf-build-tasks
-
 
   - name: deploy-((deploy-env))
     plan:
@@ -73,66 +70,50 @@ jobs:
           status: pending
           base_context: concourse
           context: deploy-cf-build-tasks
-      - get: cf-image
+      - get: general-task
       - get: oci-build-task
       - task: ls-tasks
         file: src/ci/partials/ls-tasks.yml
-        image: cf-image
+        image: general-task
       - load_var: build-tasks
         file: src/build-tasks.json
       - across:
-        - var: build-task
-          values: ((.:build-tasks))
-          max_in_flight: 20
+          - var: build-task
+            values: ((.:build-tasks))
+            max_in_flight: 20
         do:
-        - task: build
-          privileged: true
-          image: oci-build-task
-          file: src/ci/partials/build.yml
-          params:
-            BUILD_ARG_TASK_FOLDER: tasks/((.:build-task))
-            BUILD_ARGS_FILE: tasks/((.:build-task))/.env
-            BUILDKIT_SECRETTEXT_UA_TOKEN: ((ua-token))
-            DOCKERFILE: Dockerfile
-        - task: tag-list
-          file: src/ci/partials/tag-list.yml
-          image: cf-image
-          params:
-            TAG: ((.:build-task))-((deploy-env))
-        - put: image-repository
-          params:
-            image: image/image.tar # this might need output_mapping
-            additional_tags: src/tag-list.txt
-        - task: deploy
-          file: src/ci/partials/deploy.yml
-          image: cf-image
-          params:
-            <<: *env-cf
-            CF_APP_NAME: pages-((.:build-task))-task-((deploy-env))
-            CF_MANIFEST: .cloudgov/manifest.yml
-            CF_VARS_FILE: .cloudgov/vars/pages-((deploy-env)).yml
-            IMAGE_REPOSITORY: ../image-repository/repository
-            IMAGE_TAG: ((.:build-task))-((deploy-env))
-            CF_DOCKER_USERNAME: ((ecr-aws-key))
-            CF_DOCKER_PASSWORD: ((ecr-aws-secret))
-          on_failure:
-            put: slack
+          - task: build
+            privileged: true
+            image: oci-build-task
+            file: src/ci/partials/build.yml
             params:
-              text: |
-                :x: FAILED: pages-cf-build-tasks: ((.:build-task)) deployment on ((deploy-env))
-                <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|View build details>
-              channel: ((slack-channel))
-              username: ((slack-username))
-              icon_url: ((slack-icon-url))
-          on_success:
-            put: slack
+              BUILD_ARG_TASK_FOLDER: tasks/((.:build-task))
+              BUILD_ARGS_FILE: tasks/((.:build-task))/.env
+              BUILDKIT_SECRETTEXT_UA_TOKEN: ((ua-token))
+              DOCKERFILE: Dockerfile
+          - task: tag-list
+            file: src/ci/partials/tag-list.yml
+            image: general-task
             params:
-              text: |
-                :white_check_mark: SUCCESS: Successfully deployed pages-cf-build-tasks: ((.:build-task)) on ((deploy-env))
-                <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|View build details>
-              channel: ((slack-channel))
-              username: ((slack-username))
-              icon_url: ((slack-icon-url))
+              TAG: ((.:build-task))-((deploy-env))
+          - put: image-repository
+            params:
+              image: image/image.tar
+              additional_tags: src/tag-list.txt
+          - task: deploy
+            file: src/ci/partials/deploy.yml
+            image: general-task
+            params:
+              _: #@ template.replace(data.values.env_cf_build_tasks)
+              CF_APP_NAME: pages-((.:build-task))-task-((deploy-env))
+              CF_MANIFEST: .cloudgov/manifest.yml
+              CF_VARS_FILE: .cloudgov/vars/pages-((deploy-env)).yml
+              IMAGE_REPOSITORY: ../image-repository/repository
+              IMAGE_TAG: ((.:build-task))-((deploy-env))
+              CF_DOCKER_USERNAME: ((ecr-aws-key))
+              CF_DOCKER_PASSWORD: ((ecr-aws-secret))
+            on_failure: #@ slack_hook("failure", "((.:build-task)) deployment")
+            on_success: #@ slack_hook("success", "((.:build-task)) deployment")
         on_success:
           put: src
           resource: pr
@@ -150,12 +131,9 @@ jobs:
             base_context: concourse
             context: deploy-cf-build-tasks
 
-
-############################
-#  RESOURCES
+#!  RESOURCES
 
 resources:
-
   - name: pr
     type: pull-request
     check_every: 1m
@@ -166,11 +144,6 @@ resources:
       disable_forks: true
       ignore_drafts: false
 
-  - name: slack
-    type: slack-notification
-    source:
-      url: ((slack-webhook-url))
-
   - name: image-repository
     type: registry-image
     source:
@@ -178,63 +151,18 @@ resources:
       aws_secret_access_key: ((ecr-aws-secret))
       repository: pages-cf-build-tasks
       aws_region: us-gov-west-1
-      tag_regex: '*-((deploy-env))'
+      tag_regex: "*-((deploy-env))"
 
-  - name: cf-image
-    type: registry-image
-    source:
-      aws_access_key_id: ((ecr-aws-key))
-      aws_secret_access_key: ((ecr-aws-secret))
-      repository: general-task
-      aws_region: us-gov-west-1
-      tag: latest
-
-  - name: python-image
-    type: registry-image
-    source:
-      aws_access_key_id: ((ecr-aws-key))
-      aws_secret_access_key: ((ecr-aws-secret))
-      repository: pages-python-v3.11
-      aws_region: us-gov-west-1
-      tag: latest
-
+  - name: slack
+  - name: general-task
+  - name: pipeline-tasks
+  - name: python
   - name: oci-build-task
-    type: registry-image
-    source:
-      aws_access_key_id: ((ecr-aws-key))
-      aws_secret_access_key: ((ecr-aws-secret))
-      repository: oci-build-task
-      aws_region: us-gov-west-1
-      tag: latest
 
-############################
-#  RESOURCE TYPES
+#! RESOURCE TYPES
 
 resource_types:
-
   - name: slack-notification
-    type: registry-image
-    source:
-      aws_access_key_id: ((ecr_aws_key))
-      aws_secret_access_key: ((ecr_aws_secret))
-      repository: slack-notification-resource
-      aws_region: us-gov-west-1
-      tag: latest
-
   - name: pull-request
-    type: registry-image
-    source:
-      aws_access_key_id: ((ecr_aws_key))
-      aws_secret_access_key: ((ecr_aws_secret))
-      repository: github-pr-resource
-      aws_region: us-gov-west-1
-      tag: latest
-
   - name: registry-image
-    type: registry-image
-    source:
-      aws_access_key_id: ((ecr_aws_key))
-      aws_secret_access_key: ((ecr_aws_secret))
-      repository: registry-image-resource
-      aws_region: us-gov-west-1
-      tag: latest
+  - name: git
