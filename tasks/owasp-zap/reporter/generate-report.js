@@ -1,6 +1,4 @@
 #!/usr/bin/node
-import * as ejs from 'ejs';
-import { Glob } from 'glob'
 import fs from 'fs';
 import * as utils from './templates/utils.js';
 import minimist from 'minimist';
@@ -8,11 +6,13 @@ import path from 'path';
 import groupBy from 'core-js/actual/object/group-by.js';
 import { marked } from 'marked';
 
-async function renderFromTemplate(renderData, output, templateDir, templateName, buildId) {
-  const templatePath = path.join(templateDir, templateName);
-  const template = fs.readFileSync(templatePath, 'utf8');
-  const html = await ejs.render(template, { ...renderData, utils, buildId: buildId }, { filename: `${templateDir}/${templateName}` })
-  fs.writeFileSync(output, html, 'utf8');
+async function writeToJSON(data, outputDir) {
+  fs.mkdir(outputDir, { recursive: true }, (err) => {
+    if (err) console.error(err)
+  })
+  const outputPath = path.join(outputDir, 'index.json');
+  const output = JSON.stringify(data)
+  fs.writeFileSync(outputPath, output, 'utf8');
 }
 
 function reparseHTML(str) {
@@ -106,20 +106,17 @@ const argv = minimist(process.argv.slice(2));
 
 const {
   input: inputFile,
-  output,
-  templateDir,
-  buildId,
+  outputDir,
   config: configFile
 } = argv;
 
-console.log(`Generating report page at ${output}`)
+console.log(`Generating report page at ${outputDir}`)
 
 const contents = JSON.parse(fs.readFileSync(inputFile, "utf8"));
 const config = JSON.parse(fs.readFileSync(configFile, "utf8"))
-
 const results = prepareResults(contents, config);
 
-await renderFromTemplate(results, output, templateDir, "report.ejs", buildId).then(console.log(`Report generation complete; open ${output} to review.`))
+await writeToJSON(results, outputDir).then(console.log(`Report generation complete; open ${outputDir} to review.`))
 
 // write summary count to stdout to be picked up by subprocess.run
 console.log(`Issue Count: ${results.site.issueCount}`)

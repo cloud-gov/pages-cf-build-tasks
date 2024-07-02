@@ -1,5 +1,4 @@
 #!/usr/bin/node
-import * as ejs from 'ejs';
 import { Glob } from 'glob'
 import fs from 'fs';
 import groupBy from 'core-js/actual/object/group-by.js';
@@ -54,21 +53,18 @@ function violationEnhancer(violation, config, url) {
     total: violation.nodes.length,
     helpUrl: violation.helpUrl,
     ignore,
-    ignoreSource
+    ignoreSource,
+    urls: [url],
   }
 }
 
-
-async function renderFromTemplate(renderData, accumulator, filePath, outputDir, templateDir, templateName, buildId) {
-
-  const templatePath = path.join(templateDir, templateName);
-  fs.mkdir(outputDir, (err) => {
+async function writeToJSON(data, filePath, outputDir) {
+  fs.mkdir(outputDir, { recursive: true }, (err) => {
     console.error(err)
   })
-  const outputPath = path.join(outputDir, `${filePath}.html`);
-  const template = fs.readFileSync(templatePath, 'utf8');
-  const html = await ejs.render(template, { ...renderData, accumulator, utils, buildId }, { filename: `${templateDir}/${templateName}` })
-  fs.writeFileSync(outputPath, html, 'utf8');
+  const outputPath = path.join(outputDir, `${filePath}.json`);
+  const output = JSON.stringify(data)
+  fs.writeFileSync(outputPath, output, 'utf8');
 }
 
 function groupViolations(allViolations) {
@@ -115,6 +111,7 @@ function keepUniqueObjectsWithTotalSorted(array) {
       acc[uniqueKey] = el;
     } else {
       acc[uniqueKey].total += el.total;
+      acc[uniqueKey].urls.push(...el.urls);
     }
     return acc;
   }, {})).sort((a, b) => a.order - b.order || b.total - a.total || a.id.localeCompare(b.id));
@@ -124,7 +121,6 @@ const argv = minimist(process.argv.slice(2));
 
 let inputPath = argv.inputDir;
 let outputPath = argv.outputDir;
-let templatePath = argv.templateDir;
 let buildId = argv.buildId;
 let configFile = argv.config;
 
@@ -183,10 +179,10 @@ for await (const file of g) {
     let moreCount = groupedViolationsCounts.slice(2).reduce((total, pill) => total + pill.count,
       0,)
 
-    await renderFromTemplate(thisPage.renderData, accumulator, fileName, outputPath, templatePath, "reportPage.ejs", buildId).then(() => {
+    await writeToJSON(thisPage.renderData, fileName, outputPath).then(() => {
 
       accumulator.reportPages.push({
-        path: `${fileName}.html`,
+        path: `${fileName}`,
         absoluteURL: thisPage.renderData.url,
         relativeURL: thisPage.renderData.url.split(accumulator.baseurl)[1],
         timestamp: thisPage.renderData.timestamp,
@@ -200,7 +196,7 @@ for await (const file of g) {
       accumulator.totalViolationsCount += thisPage.renderData.violationsCount;
 
       thisPage.shallowRulesViolated.forEach((rule) => {
-        if (!rule.ignore) accumulator.violatedRules.push(rule)
+        accumulator.violatedRules.push(rule)
       });
 
       // note that url is a sort of user-provided value; it's using whatever the scanned URL was, not the json results filename.
@@ -214,11 +210,10 @@ for await (const file of g) {
     // sort summary by most results per page
     accumulator.reportPages = accumulator.reportPages.sort((a, b) => b.violationsCount - a.violationsCount)
     console.log(`Generating report index for ${buildId}: ${accumulator.violatedRules.length} accessibility violations found in ${accumulator.totalViolationsCount} locations across ${totalLength} URLs.`)
-    await renderFromTemplate(null, accumulator, '/index', outputPath, templatePath, "reportIndex.ejs", buildId).then(console.log(`Report generation for build id: ${buildId} complete; open ${outputPath}/index.html to review.`))
+    await writeToJSON(accumulator, '/index', outputPath).then(console.log(`Report generation for build id: ${buildId} complete; open ${outputPath}/index.html to review.`))
 
     // write summary count to stdout to be picked up by subprocess.run
     console.log(`Issue Count: ${accumulator.violatedRules.length}`)
 
   }
 }
-
