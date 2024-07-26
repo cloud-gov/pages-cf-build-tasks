@@ -7,8 +7,8 @@ import groupBy from 'core-js/actual/object/group-by.js';
 import { marked } from 'marked';
 
 async function writeToJSON(data, outputDir) {
-  fs.mkdir(outputDir, (err) => {
-    console.error(err)
+  fs.mkdir(outputDir, { recursive: true }, (err) => {
+    if (err) console.error(err)
   })
   const outputPath = path.join(outputDir, 'index.json');
   const output = JSON.stringify(data)
@@ -114,7 +114,6 @@ console.log(`Generating report page at ${outputDir}`)
 
 const contents = JSON.parse(fs.readFileSync(inputFile, "utf8"));
 const config = JSON.parse(fs.readFileSync(configFile, "utf8"))
-
 const results = prepareResults(contents, config);
 
 await writeToJSON(results, outputDir).then(console.log(`Report generation complete; open ${outputDir} to review.`))

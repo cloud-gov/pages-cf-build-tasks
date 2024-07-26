@@ -58,7 +58,7 @@ function violationEnhancer(violation, config, url) {
 }
 
 async function writeToJSON(data, filePath, outputDir) {
-  fs.mkdir(outputDir, (err) => {
+  fs.mkdir(outputDir, { recursive: true }, (err) => {
     console.error(err)
   })
   const outputPath = path.join(outputDir, `${filePath}.json`);
