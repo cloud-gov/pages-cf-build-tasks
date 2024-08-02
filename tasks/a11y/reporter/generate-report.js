@@ -53,7 +53,8 @@ function violationEnhancer(violation, config, url) {
     total: violation.nodes.length,
     helpUrl: violation.helpUrl,
     ignore,
-    ignoreSource
+    ignoreSource,
+    url,
   }
 }
 
