@@ -27,8 +27,7 @@ class BuildTask(BaseBuildTask):
             cf.write(config)
 
         tmp_report = 'report.json'
-        templates_dir = '/build-task/reporter/templates'
-
+        output_dir = '/build-task/output'
         filename = f'/zap-scan-for-{owner}-{repository}-{buildid}.html'
 
         output = run([
@@ -45,10 +44,8 @@ class BuildTask(BaseBuildTask):
             'build-task/reporter/generate-report.js',
             '--input',
             f'/zap/wrk/{tmp_report}',
-            '--output',
-            filename,
-            '--templateDir',
-            templates_dir,
+            '--outputDir',
+            output_dir,
             '--target',
             target,
             '--buildId',
@@ -57,6 +54,7 @@ class BuildTask(BaseBuildTask):
             config_file
         ], capture_output=True)
 
+        # Keeping until we remove report generation
         # regex test on output for count
         summary_regex = r'Issue Count: (\d+)'
         match = re.search(summary_regex, output.stdout)
@@ -66,7 +64,7 @@ class BuildTask(BaseBuildTask):
             count = 0
 
         return dict(
-            artifact=filename,
+            artifact=output_dir,
             message=None,
             count=count,
         )

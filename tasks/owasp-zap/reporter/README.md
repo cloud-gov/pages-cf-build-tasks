@@ -2,10 +2,10 @@
 
 Creates an HTML report from ZAP vulnerability scan
 
-Given an `input` JSON file for a given `target` and a `templateDir` containing `.ejs` files, the following command creates a matching HTML report`.
+Given an `input` JSON file for a given `target`, the following command creates a matching JSON report`.
 
 ```sh
 
-node generate-report.js --input results.json --templateDir templates --target https://example.gov
+node generate-report.js --input results.json --target https://example.gov
 
 ```
