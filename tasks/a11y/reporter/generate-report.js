@@ -195,7 +195,7 @@ for await (const file of g) {
       accumulator.totalViolationsCount += thisPage.renderData.violationsCount;
 
       thisPage.shallowRulesViolated.forEach((rule) => {
-        if (!rule.ignore) accumulator.violatedRules.push(rule)
+        accumulator.violatedRules.push(rule)
       });
 
       // note that url is a sort of user-provided value; it's using whatever the scanned URL was, not the json results filename.
