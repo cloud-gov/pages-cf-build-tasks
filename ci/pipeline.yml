@@ -108,6 +108,8 @@ jobs:
             params:
               image: image/image.tar
               additional_tags: src/tag-list.txt
+            get_params:
+              skip_download: true
           - task: deploy
             file: src/ci/partials/deploy.yml
             image: general-task
