@@ -11,7 +11,7 @@ if __name__ == "__main__":
         try:
             task.status_start()
             task.results = task.handler()
-            task.upload_file()
+            task.upload_results()
             task.status_end()
         except NotImplementedError:
             """operator didn't write a handler"""

@@ -33,8 +33,7 @@ class BuildTask(BaseBuildTask):
             cf.write(config)
 
         results_dir = '/build-task/results'
-        reports_dir = '/build-task/reports'
-        templates_dir = '/build-task/reporter/templates'
+        output_dir = '/build-task/output'
         os.makedirs(results_dir, exist_ok=True)
 
         # crawl
@@ -66,16 +65,13 @@ class BuildTask(BaseBuildTask):
                 with open(os.path.join(results_dir, str(idx)), 'w') as f:
                     json.dump([dict(url=url, error=True)], f)
 
-        # report
         output = run([
             'node',
             'build-task/reporter/generate-report.js',
             '--inputDir',
             results_dir,
             '--outputDir',
-            reports_dir,
-            '--templateDir',
-            templates_dir,
+            output_dir,
             '--target',
             target,
             '--buildId',
@@ -84,6 +80,7 @@ class BuildTask(BaseBuildTask):
             config_file
         ], capture_output=True)
 
+        # Keeping until we remove report generation
         # regex test on output for count
         summary_regex = r'Issue Count: (\d+)'
         match = re.search(summary_regex, output.stdout)
@@ -92,12 +89,8 @@ class BuildTask(BaseBuildTask):
         except Exception:
             count = 0
 
-        # bundle
-        filename = f'/accessibility-scan-for-{owner}-{repository}-{buildid}'  # noqa: E501
-        shutil.make_archive(filename, 'zip', reports_dir)
-
         return dict(
-            artifact=f'{filename}.zip',
+            artifact=output_dir,
             message=None,
             count=count,
         )

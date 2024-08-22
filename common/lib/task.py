@@ -88,17 +88,20 @@ class BaseBuildTask:
             "message": err
         })
 
-    def upload_file(self):
+    def upload_results(self):
         """upload file to S3"""
-        filename = self.results["artifact"]
-        base = os.path.basename(filename)
-        self.key = f'_tasks/artifacts/{self.task_id}/{base}'
+        results_dir = self.results["artifact"]
+        self.key = f'_tasks/artifacts/{self.task_id}/'
 
-        self.s3_client.upload_file(
-            Filename=filename,
-            Bucket=self.bucket,
-            Key=self.key,
-        )
+        for filename in os.listdir(results_dir):
+            base = os.path.basename(filename)
+            s3key = f'{self.key}{base}'
+
+            self.s3_client.upload_file(
+                Filename=f'{results_dir}/{filename}',
+                Bucket=self.bucket,
+                Key=s3key,
+            )
 
     def handler():
         raise NotImplementedError

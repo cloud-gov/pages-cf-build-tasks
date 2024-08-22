@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "ejslint templates/*",
     "build": "node generate-report.js",
-    "watch": "ejslint templates/* && node --watch-path=./templates --watch-path=./generate-report.js generate-report.js --input report.json --output report.html --templateDir templates --target https://example.gov --buildId 123456"
+    "watch": "ejslint templates/* && node --watch-path=./templates --watch-path=./generate-report.js generate-report.js --input report.json --output report.html --target https://example.gov --buildId 123456"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
