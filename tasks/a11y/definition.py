@@ -1,8 +1,8 @@
 import json
 import os
 import re
-import shutil
 import logging
+import random
 
 from scraper.spider import process, A11ySpider
 
@@ -25,8 +25,6 @@ class BuildTask(BaseBuildTask):
         """scan"""
         target = self.args['target']
         buildid = self.args['buildid']
-        owner = self.args['owner']
-        repository = self.args['repository']
         config = self.args['config']
         config_file = '/build-task/reporter/config.json'
         with open(config_file, 'w') as cf:
@@ -48,6 +46,10 @@ class BuildTask(BaseBuildTask):
             )
         )
         self.logger.info(f'{len(data)} urls found')
+        url_limit = 500
+        if len(data) > url_limit:
+            self.logger.info(f'limiting scanning to {url_limit} urls')
+            data = [data[0], *random.sample(data[1:], url_limit - 1)]
 
         # scan
         for idx, url in enumerate(data):
