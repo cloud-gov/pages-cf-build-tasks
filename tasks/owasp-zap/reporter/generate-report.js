@@ -69,8 +69,8 @@ function cleanAlerts (alerts, config) {
       const test = alert.instances.some(i => i.ignore) && !alert.instances.every(i => i.ignore);
       const alertArray = test
         ? [
-          { ...alert, instances: instances.filter(i => i.ignore), ignore: true },
-          { ...alert, instances: instances.filter(i => !i.ignore), ignore: false },
+          { ...alert, instances: alert.instances.filter(i => i.ignore), ignore: true },
+          { ...alert, instances: alert.instances.filter(i => !i.ignore), ignore: false },
         ]
         : [alert]
       return agg.concat(alertArray)
