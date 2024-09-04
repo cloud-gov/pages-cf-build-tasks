@@ -88,3 +88,7 @@ needs a folder within `tasks` which should be named corresponding to the `appNam
 ### Docker Image Building in CI
 
 All tasks use the same `Dockerfile` with different build arguments supplied. Each task is built via the concourse task [`oci-build-task`](https://github.com/concourse/oci-build-task). The `.env` file referenced above is supplied as `BUILD_ARGS_FILE` so that `BASE_IMAGE` is available at build time. `TASK_FOLDER` is interpolated by the concourse `across` step and supplied as `BUILD_ARG_TASK_FOLDER`. All base images are required to have python available.
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md)
