@@ -1,5 +1,18 @@
 ## 0.2.0 (2024-09-04)
 
+### Fixed
+
+- use the correct variable name on second pass deduplication of ignored findings
+- use base url and random sample of urls when over defined limit
+
+### Maintenance
+
+- release 0.2.0
+- pull to consistent git depth
+- Refactor zap and a11y tasks to upload just JSON results
+
+## 0.2.0 (2024-09-04)
+
 ### Added
 
 - use supplied scan configuration
