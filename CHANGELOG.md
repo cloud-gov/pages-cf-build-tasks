@@ -1,21 +1,3 @@
-## 0.2.0 (2024-09-04)
-
-### Added
-
-- use supplied scan configuration
-
-### Fixed
-
-- use the correct variable name on second pass deduplication of ignored findings
-- use base url and random sample of urls when over defined limit
-
-### Maintenance
-
-- pull to consistent git depth
-- Refactor zap and a11y tasks to upload just JSON results
-- **ci**: use boot script for multiple env
-- update pipeline
-
 ## 0.1.3 (2024-05-28)
 
 ### Added
