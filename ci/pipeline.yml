@@ -34,11 +34,6 @@ jobs:
     plan:
       - get: src
         trigger: true
-        params:
-          #@ if/end env != 'dev':
-          depth: 1
-          #@ if/end env == 'dev':
-          integration_tool: checkout
       - get: general-task
       - get: pipeline-tasks
       - task: update-release-branch
@@ -133,12 +128,8 @@ jobs:
   - name: release
     plan:
       - get: src
-        params:
-          #@ if/end env != 'dev':
-          depth: 1
-          #@ if/end env == 'dev':
-          integration_tool: checkout
         trigger: true
+        params: { depth: 1 }
         passed: [deploy]
       -  #@ template.replace(data.values.release_steps)
 
