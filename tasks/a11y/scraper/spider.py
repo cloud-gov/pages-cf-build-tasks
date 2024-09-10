@@ -1,6 +1,6 @@
 import logging
 from scrapy.crawler import CrawlerProcess
-from scrapy.linkextractors import LinkExtractor
+from scrapy.linkextractors import LinkExtractor, IGNORED_EXTENSIONS
 from scrapy.spiders import CrawlSpider, Rule
 
 
@@ -12,7 +12,12 @@ class A11ySpider(CrawlSpider):
         self.start_urls = [target]
         self.rules = (
             Rule(
-                LinkExtractor(allow=f'{target}*'),
+                LinkExtractor(
+                    allow=f'{target}*',
+                    deny_extensions=[*IGNORED_EXTENSIONS, 'xml', 'pdf'],
+                    canonicalize=True,
+                    unique=True,
+                    ),
                 callback='parse_item',
                 follow=True
             ),
