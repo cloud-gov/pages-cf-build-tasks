@@ -66,11 +66,18 @@ function cleanAlerts (alerts, config) {
     return firstPassClean.reduce((agg, alert) => {
       // we take this second pass to create duplicate alerts for those which contain some ignored
       // and some non-ignored instances
-      const test = alert.instances.some(i => i.ignore) && !alert.instances.every(i => i.ignore);
+      const ignored = alert.instances.filter(i => i.ignore);
+      const nonIgnored = alert.instances.filter(i => !i.ignore);
+      const test = ignored.length > 0 && !alert.instances.every(i => i.ignore);
+      // test if all ignored instances have the same ignoreSource
+      const ignoreSource = new Set(ignored.map(i => i.ignoreSource)).size === 1
+        ? ignored[0].ignoreSource
+        : 'multiple criteria'
+
       const alertArray = test
         ? [
-          { ...alert, instances: alert.instances.filter(i => i.ignore), ignore: true },
-          { ...alert, instances: alert.instances.filter(i => !i.ignore), ignore: false },
+          { ...alert, instances: ignored, ignore: true, ignoreSource },
+          { ...alert, instances: nonIgnored, ignore: false },
         ]
         : [alert]
       return agg.concat(alertArray)
