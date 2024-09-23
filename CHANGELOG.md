@@ -1,3 +1,14 @@
+## 0.2.1 (2024-09-23)
+
+### Fixed
+
+- don't capture xml or pdf links
+
+### Maintenance
+
+- add ignore source for alerts with instance suppression
+- Update task reporter node dependencies
+
 ## 0.2.0 (2024-09-04)
 
 ### Added
