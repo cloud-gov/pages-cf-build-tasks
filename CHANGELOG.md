@@ -1,3 +1,9 @@
+## 0.2.2 (2024-09-26)
+
+### Maintenance
+
+- add logging and page delay, reorder suppressions
+
 ## 0.2.1 (2024-09-23)
 
 ### Fixed
