@@ -33,6 +33,7 @@ class BuildTask(BaseBuildTask):
         results_dir = '/build-task/results'
         output_dir = '/build-task/output'
         os.makedirs(results_dir, exist_ok=True)
+        os.makedirs(output_dir, exist_ok=True)
 
         # crawl
         data = []  # accumulates the urls during .start()
