@@ -1,3 +1,13 @@
+## 0.2.3 (2024-09-27)
+
+### Fixed
+
+- guarantee output directory
+
+### Maintenance
+
+- reduce concurrent spider requests
+
 ## 0.2.2 (2024-09-26)
 
 ### Maintenance
