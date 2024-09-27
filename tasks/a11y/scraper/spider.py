@@ -35,11 +35,12 @@ settings = dict(
     BOT_NAME="cloudgovpagescrawler",
     USER_AGENT="cloudgovpagescrawler (https://cloud.gov/pages)",
     ROBOTSTXT_OBEY=True,
-    CONCURRENT_REQUESTS_PER_DOMAIN=16,
+    CONCURRENT_REQUESTS_PER_DOMAIN=1,
     REQUEST_FINGERPRINTER_IMPLEMENTATION="2.7",
     TWISTED_REACTOR="twisted.internet.asyncioreactor.AsyncioSelectorReactor",
     FEED_EXPORT_ENCODING="utf-8",
-    LOG_LEVEL=logging.INFO
+    LOG_LEVEL=logging.INFO,
+    DOWNLOAD_DELAY=0.1
 )
 
 process = CrawlerProcess(settings)

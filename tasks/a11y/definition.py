@@ -61,7 +61,6 @@ class BuildTask(BaseBuildTask):
                     f'axe {url}' +
                     ' --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage"' +  # noqa: E501
                     ' --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa' +
-                    ' --load-delay=100' +
                     f' --dir {results_dir}'
                 ], timeout=900, shell=True, capture_output=True)
                 self.logger.info(f'scan complete on url: {url}')
