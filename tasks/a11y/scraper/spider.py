@@ -2,6 +2,7 @@ import logging
 from scrapy.crawler import CrawlerProcess
 from scrapy.linkextractors import LinkExtractor, IGNORED_EXTENSIONS
 from scrapy.spiders import CrawlSpider, Rule
+from ..user_agent import USER_AGENT
 
 
 class A11ySpider(CrawlSpider):
@@ -24,7 +25,8 @@ class A11ySpider(CrawlSpider):
         )
         self.data = data
 
-        # recompile rules: https://stackoverflow.com/questions/27509489/how-to-dynamically-set-scrapy-rules
+        # recompile rules:
+        # https://stackoverflow.com/questions/27509489/how-to-dynamically-set-scrapy-rules
         super(A11ySpider, self)._compile_rules()
 
     def parse_item(self, response):
@@ -33,14 +35,13 @@ class A11ySpider(CrawlSpider):
 
 settings = dict(
     BOT_NAME="cloudgovpagescrawler",
-    USER_AGENT="cloudgovpagescrawler (https://cloud.gov/pages)",
+    USER_AGENT=USER_AGENT,
     ROBOTSTXT_OBEY=True,
-    CONCURRENT_REQUESTS_PER_DOMAIN=1,
+    CONCURRENT_REQUESTS_PER_DOMAIN=16,
     REQUEST_FINGERPRINTER_IMPLEMENTATION="2.7",
     TWISTED_REACTOR="twisted.internet.asyncioreactor.AsyncioSelectorReactor",
     FEED_EXPORT_ENCODING="utf-8",
     LOG_LEVEL=logging.INFO,
-    DOWNLOAD_DELAY=0.1
 )
 
 process = CrawlerProcess(settings)

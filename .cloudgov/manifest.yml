@@ -10,6 +10,7 @@ applications:
         name: owasp-zap
     services:
       - pages-((env))-encryption
+      - user-agent
     env:
       LOGLEVEL: ((loglevel))
       DEPLOY_ENV: ((env))
