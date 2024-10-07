@@ -5,6 +5,7 @@ import logging
 import random
 
 from scraper.spider import process, A11ySpider
+from user_agent import USER_AGENT
 
 from lib.task import BaseBuildTask
 from lib.utils import run
@@ -59,7 +60,7 @@ class BuildTask(BaseBuildTask):
                 self.logger.info(f'axe scan on url: {url}')
                 run([
                     f'axe {url}' +
-                    ' --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage"' +  # noqa: E501
+                    f' --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage,user-agent={USER_AGENT}"' +  # noqa: E501
                     ' --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa' +
                     f' --dir {results_dir}'
                 ], timeout=900, shell=True, capture_output=True)
