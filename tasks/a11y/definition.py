@@ -5,7 +5,7 @@ import logging
 import random
 
 from scraper.spider import process, A11ySpider
-from user_agent import USER_AGENT
+from scraper.user_agent import USER_AGENT
 
 from lib.task import BaseBuildTask
 from lib.utils import run

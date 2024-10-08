@@ -2,7 +2,7 @@ import logging
 from scrapy.crawler import CrawlerProcess
 from scrapy.linkextractors import LinkExtractor, IGNORED_EXTENSIONS
 from scrapy.spiders import CrawlSpider, Rule
-from ..user_agent import USER_AGENT
+from .user_agent import USER_AGENT
 
 
 class A11ySpider(CrawlSpider):
