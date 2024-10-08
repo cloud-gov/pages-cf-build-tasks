@@ -1,3 +1,9 @@
+## 0.2.4 (2024-10-07)
+
+### Maintenance
+
+- add custom user-agent to a11y scans
+
 ## 0.2.3 (2024-09-27)
 
 ### Fixed
