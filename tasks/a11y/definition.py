@@ -71,10 +71,10 @@ class BuildTask(BaseBuildTask):
                     f' --save {result_file}'
                 ], timeout=900, shell=True, capture_output=True)
 
-                du = run([
-                    'du -sh **/* | grep -v "/$" | sort -rh | head -n 10'
+                la = run([
+                    'ls -la build-task/results | head -n 10'
                 ], shell=True, capture_output=True)
-                self.logger.info(du)
+                self.logger.info(la.stdout)
                 # compacts the output
                 # with open(result_file_full, 'r+') as result:
 
