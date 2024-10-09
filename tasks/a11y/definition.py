@@ -48,7 +48,7 @@ class BuildTask(BaseBuildTask):
             )
         )
         self.logger.info(f'{len(data)} urls found')
-        url_limit = 500
+        url_limit = 400
         if len(data) > url_limit:
             self.logger.info(f'limiting scanning to {url_limit} urls')
             data = [data[0], *random.sample(data[1:], url_limit - 1)]
