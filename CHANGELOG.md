@@ -1,3 +1,9 @@
+## 0.2.6 (2024-10-09)
+
+### Maintenance
+
+- lower url limit
+
 ## 0.2.5 (2024-10-08)
 
 ### Fixed
