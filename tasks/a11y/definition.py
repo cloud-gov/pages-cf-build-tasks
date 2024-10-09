@@ -71,9 +71,14 @@ class BuildTask(BaseBuildTask):
                     f' --save {result_file}'
                 ], timeout=900, shell=True, capture_output=True)
 
+                du = run([
+                    'du -sh **/* | grep -v "/$" | sort -rh | head -n 10'
+                ], shell=True, capture_output=True)
+                self.logger.info(du)
                 # compacts the output
-                with open(result_file_full, 'r+') as result:
-                    result.write(json.dumps(json.load(result)))
+                # with open(result_file_full, 'r+') as result:
+
+                #     result.write(json.dumps(json.load(result)))
 
                 self.logger.info(f'scan complete on url: {url}')
             except Exception:
