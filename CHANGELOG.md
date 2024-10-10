@@ -1,3 +1,10 @@
+## 0.2.7 (2024-10-10)
+
+### Maintenance
+
+- correct spider regex match
+- drop zap run specific timeout
+
 ## 0.2.6 (2024-10-09)
 
 ### Maintenance
