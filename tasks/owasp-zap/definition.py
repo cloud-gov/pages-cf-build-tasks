@@ -37,7 +37,7 @@ class BuildTask(BaseBuildTask):
             '-I',
             '-d',
             '-T', '5'  # https://www.zaproxy.org/docs/docker/baseline-scan/
-        ], timeout=1800, capture_output=True)
+        ], capture_output=True)
 
         output = run([
             'node',
