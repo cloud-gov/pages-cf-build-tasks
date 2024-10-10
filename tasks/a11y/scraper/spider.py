@@ -14,7 +14,7 @@ class A11ySpider(CrawlSpider):
         self.rules = (
             Rule(
                 LinkExtractor(
-                    allow=f'{target}*',
+                    allow=target,
                     deny_extensions=[*IGNORED_EXTENSIONS, 'xml', 'pdf'],
                     canonicalize=True,
                     unique=True,
