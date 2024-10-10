@@ -47,6 +47,9 @@ class BuildTask(BaseBuildTask):
                 os.getenv('LOGLEVEL', 'debug').upper()
             )
         )
+        # eliminate empties
+        data = [d for d in data if d]
+
         self.logger.info(f'{len(data)} urls found')
         url_limit = 400
         if len(data) > url_limit:
@@ -55,6 +58,8 @@ class BuildTask(BaseBuildTask):
 
         # scan
         for idx, url in enumerate(data):
+            result_file = f'{str(idx)}.json'
+            result_file_full = f'{results_dir}/{result_file}'
             try:
                 # capture the output to avoid printing individual page results
                 self.logger.info(f'axe scan on url: {url}')
@@ -62,12 +67,23 @@ class BuildTask(BaseBuildTask):
                     f'axe {url}' +
                     f' --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage,user-agent={USER_AGENT}"' +  # noqa: E501
                     ' --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa' +
-                    f' --dir {results_dir}'
+                    f' --dir {results_dir}' +
+                    f' --save {result_file}'
                 ], timeout=900, shell=True, capture_output=True)
+
+                la = run([
+                    'ls -la build-task/results | head -n 10'
+                ], shell=True, capture_output=True)
+                self.logger.info(la.stdout)
+                # compacts the output
+                # with open(result_file_full, 'r+') as result:
+
+                #     result.write(json.dumps(json.load(result)))
+
                 self.logger.info(f'scan complete on url: {url}')
             except Exception:
                 self.logger.error(f'error scanning url: {url}')
-                with open(os.path.join(results_dir, str(idx)), 'w') as f:
+                with open(result_file_full, 'w') as f:
                     json.dump([dict(url=url, error=True)], f)
 
         output = run([
