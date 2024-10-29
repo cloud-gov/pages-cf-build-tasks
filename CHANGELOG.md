@@ -1,3 +1,9 @@
+## 0.2.8 (2024-10-29)
+
+### Fixed
+
+- throw an error when no urls are found (#71)
+
 ## 0.2.7 (2024-10-10)
 
 ### Maintenance
