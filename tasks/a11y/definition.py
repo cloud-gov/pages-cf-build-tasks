@@ -47,6 +47,11 @@ class BuildTask(BaseBuildTask):
                 os.getenv('LOGLEVEL', 'debug').upper()
             )
         )
+
+        # error for 0 urls, cap at url_limit
+        if len(data) == 0:
+            raise Exception("0 urls found")
+
         self.logger.info(f'{len(data)} urls found')
         url_limit = 400
         if len(data) > url_limit:
