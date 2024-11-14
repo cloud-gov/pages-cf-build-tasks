@@ -1,3 +1,9 @@
+## 0.2.9 (2024-11-14)
+
+### Maintenance
+
+- rotate user-agent
+
 ## 0.2.8 (2024-10-29)
 
 ### Fixed
