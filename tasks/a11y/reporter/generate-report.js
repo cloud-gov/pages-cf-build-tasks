@@ -213,7 +213,7 @@ for await (const file of g) {
     await writeToJSON(accumulator, '/index', outputPath).then(console.log(`Report generation for build id: ${buildId} complete; open ${outputPath}/index.html to review.`))
 
     // write summary count to stdout to be picked up by subprocess.run
-    console.log(`Issue Count: ${accumulator.violatedRules.length}`)
+    console.log(`Issue Count: ${accumulator.violatedRules.filter(rule => !rule.ignore).length}`)
 
   }
 }
