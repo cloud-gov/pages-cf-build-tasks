@@ -1,3 +1,9 @@
+## 0.2.10 (2024-11-19)
+
+### Maintenance
+
+- a11y count should respected ignored rules
+
 ## 0.2.9 (2024-11-14)
 
 ### Maintenance
