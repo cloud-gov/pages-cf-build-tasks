@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 mkdir /zap/wrk
 
 NODE_VERSION=v20.12.0
