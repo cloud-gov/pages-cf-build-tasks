@@ -1,3 +1,10 @@
+## 0.2.11 (2025-01-17)
+
+### Maintenance
+
+- run task in virtualenv, zap in base python, per pep 668
+- update reporter dependencies
+
 ## 0.2.10 (2024-11-19)
 
 ### Maintenance
