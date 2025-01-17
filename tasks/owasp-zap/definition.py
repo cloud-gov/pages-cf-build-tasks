@@ -1,4 +1,5 @@
 import re
+import os
 
 from lib.task import BaseBuildTask
 from lib.utils import run
@@ -19,8 +20,6 @@ class BuildTask(BaseBuildTask):
         """scan"""
         target = self.args['target']
         buildid = self.args['buildid']
-        owner = self.args['owner']
-        repository = self.args['repository']
         config = self.args['config']
         config_file = '/build-task/reporter/config.json'
         with open(config_file, 'w') as cf:
@@ -28,16 +27,20 @@ class BuildTask(BaseBuildTask):
 
         tmp_report = 'report.json'
         output_dir = '/build-task/output'
-        filename = f'/zap-scan-for-{owner}-{repository}-{buildid}.html'
 
+        # unset virtualenv & venv path to run in the base environment
+        mod_path = ':'.join(os.environ['PATH'].split(':')[1:])
+        mod_env = os.environ.copy()
+        mod_env['VIRTUAL_ENV'] = ''
+        mod_env['PATH'] = mod_path
         output = run([
-            'zap-baseline.py',
+            '/zap/zap-baseline.py',
             '-t', target,
             '-J', tmp_report,
             '-I',
             '-d',
             '-T', '5'  # https://www.zaproxy.org/docs/docker/baseline-scan/
-        ], capture_output=True)
+        ], capture_output=True, env=mod_env)
 
         output = run([
             'node',

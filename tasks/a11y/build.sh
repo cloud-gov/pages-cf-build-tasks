@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 pip3 install --no-cache-dir --upgrade scrapy chromedriver-autoinstaller
 
 # node
