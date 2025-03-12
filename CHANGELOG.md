@@ -1,3 +1,9 @@
+## 0.2.12 (2025-03-12)
+
+### Maintenance
+
+- update a11y reporter dependencies
+
 ## 0.2.11 (2025-01-17)
 
 ### Maintenance
