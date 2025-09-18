@@ -2,6 +2,9 @@
 
 pip3 install --no-cache-dir --upgrade scrapy chromedriver-autoinstaller
 
+# get that wget and gnupg to install the deps
+apt update && apt install gnupg wget -y
+
 # node
 NODE_VERSION=v20.12.0
 wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz" \
@@ -20,10 +23,10 @@ ln -s /usr/local/lib/nodejs/node-${NODE_VERSION}-linux-x64/bin/axe /usr/bin/axe
 npm --prefix build-task/reporter/ install
 
 # chrome + chromedriver
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-  && echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list.d/google.list \
-  && apt-get update \
-  && apt-get install -y google-chrome-stable --no-install-recommends \
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-linux-signing-key.gpg \
+  && echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-signing-key.gpg] http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list.d/google.list \
+  && apt update \
+  && apt install -y google-chrome-stable --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
 python -c "import chromedriver_autoinstaller;chromedriver_autoinstaller.install()"
