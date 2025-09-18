@@ -1,3 +1,12 @@
+## 0.2.12 (2025-09-18)
+
+### Maintenance
+
+- Update the CONTRIBUTING.md
+- Update reporter npm dependencies for Q4 FY25
+- Set security considerations action to read only
+- update a11y reporter dependencies
+
 ## 0.2.11 (2025-01-17)
 
 ### Maintenance
