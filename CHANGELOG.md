@@ -1,3 +1,9 @@
+## 0.2.13 (2025-10-02)
+
+### Maintenance
+
+- Add CODEOWNERS
+
 ## 0.2.12 (2025-09-18)
 
 ### Maintenance
