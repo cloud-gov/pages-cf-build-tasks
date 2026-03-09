@@ -1,3 +1,9 @@
+## 0.2.14 (2026-03-09)
+
+### Maintenance
+
+- Remove deprecated security-considerations automation files
+
 ## 0.2.13 (2025-10-02)
 
 ### Maintenance
