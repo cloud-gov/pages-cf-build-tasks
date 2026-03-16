@@ -73,6 +73,8 @@ jobs:
           integration_tool: checkout
       #@ if/end env == 'dev':
       -  #@ pr_hook("pending", "deploy-cf-build-tasks")
+      - get: weekly-tuesdays-at-7am
+        trigger: true
       - get: general-task
       - get: oci-build-task
       - task: ls-tasks
@@ -213,6 +215,16 @@ resources:
       aws_region: us-gov-west-1
       tag_regex: "*-((deploy-env))"
 
+  - name: weekly-tuesdays-at-7am
+    type: time
+    source:
+      interval: 168h
+      location: America/New_York
+      start: 7:00 AM
+      stop: 7:30 AM
+      days: [Tuesday]
+      initial_version: true
+
   - name: slack
   - name: general-task
   - name: pipeline-tasks
@@ -225,6 +237,7 @@ resource_types:
   - name: slack-notification
   - name: registry-image
   - name: git
+  - name: time
   #@ if/end env == 'dev':
   - name: pull-request
   #@ if env == 'production':
