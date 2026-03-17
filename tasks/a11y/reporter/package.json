@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "core-js": "^3.36.1",
-    "glob": "^10.3.10",
+    "glob": "^11.1.0",
     "minimist": "^1.2.8"
   }
 }
