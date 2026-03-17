@@ -1,3 +1,14 @@
+## 0.3.0 (2026-03-17)
+
+### Added
+
+- **ci**: Add weekly build and deploy trigger for tasks
+
+### Maintenance
+
+- Update reporter node dependencies
+- Remove deprecated security-considerations automation files
+
 ## 0.2.13 (2025-10-02)
 
 ### Maintenance
