@@ -68,7 +68,7 @@ class BuildTask(BaseBuildTask):
                     f' --chrome-options="no-sandbox,disable-setuid-sandbox,disable-dev-shm-usage,user-agent={USER_AGENT}"' +  # noqa: E501
                     ' --tags wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa' +
                     f' --dir {results_dir}'
-                ], timeout=900, shell=True, capture_output=True)
+                ], timeout=900, shell=True, capture_output=True, logger=self.logger)
                 self.logger.info(f'scan complete on url: {url}')
             except Exception:
                 self.logger.error(f'error scanning url: {url}')
