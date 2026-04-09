@@ -1,3 +1,9 @@
+## 0.3.1 (2026-04-09)
+
+### Fixed
+
+- Pages CF task axe core scan
+
 ## 0.3.0 (2026-04-01)
 
 ### Added
