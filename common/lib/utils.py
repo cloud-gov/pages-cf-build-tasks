@@ -48,7 +48,13 @@ def decrypt_dict_values(encrypted_dict, key):
 def run(*args, **kwargs):
     # always run with text output for easier error reporting
     kwargs["text"] = True
+    logger = kwargs.pop("logger", None)
+
     output = subprocess.run(*args, **kwargs)
+
+    if logger and getattr(output, "stderr", None) and output.returncode != 0:
+        logger.error(f"Run Error: {output.stderr}")
+
     if output.returncode > 0:
         if output.stderr:
             raise Exception(output.stderr)

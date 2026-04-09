@@ -2,7 +2,7 @@
 
 mkdir /zap/wrk
 
-NODE_VERSION=v20.12.0
+NODE_VERSION=v24.14.1
 wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz" \
   && mkdir -p /usr/local/lib/nodejs \
   && tar -xJvf node-${NODE_VERSION}-linux-x64.tar.xz -C /usr/local/lib/nodejs \
