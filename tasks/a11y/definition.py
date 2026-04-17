@@ -3,6 +3,7 @@ import os
 import re
 import logging
 import random
+import subprocess
 
 from scraper.spider import process, A11ySpider
 from scraper.user_agent import USER_AGENT
@@ -74,6 +75,10 @@ class BuildTask(BaseBuildTask):
                 self.logger.error(f'error scanning url: {url}')
                 with open(os.path.join(results_dir, str(idx)), 'w') as f:
                     json.dump([dict(url=url, error=True)], f)
+            finally:
+                # Try killing any lingering Chrome processes
+                subprocess.run(['pkill', '-f', 'chromedriver'])
+                subprocess.run(['pkill', '-f', 'chrome'])
 
         output = run([
             'node',
