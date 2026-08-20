@@ -1,3 +1,10 @@
+## 0.3.2 (2026-06-03)
+
+### Maintenance
+
+- Explicitly install chrome driver version for a11y tasks
+- update node and npm to harden the npmrc file 2953
+
 ## 0.3.1 (2026-04-09)
 
 ### Fixed
